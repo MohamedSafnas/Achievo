@@ -1,0 +1,437 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg">
+
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="415dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        >
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="101dp"
+            android:layout_height="75dp"
+            app:srcCompat="@drawable/logo_cut" />
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <LinearLayout
+            android:id="@+id/scrollContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/wel"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:layout_gravity="top"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_white"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/size28"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/welcome"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    style="@style/size26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/displayName"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/size26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/analytics" />
+
+            <LinearLayout
+                android:id="@+id/analytics"
+                android:layout_width="390dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/goalT" />
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/goalTn"
+                        android:textColor="@color/lightGray" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/goalRisk" />
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/goalRiskn"
+                        android:textColor="@color/lightGray" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/missGoal" />
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/missGoaln"
+                        android:textColor="@color/lightGray" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/curStreak" />
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/curStreakn"
+                        android:textColor="@color/lightGray" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/size26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/manageG" />
+
+            <LinearLayout
+                android:id="@+id/goalManager"
+                android:layout_width="390dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_white2"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+
+                <LinearLayout
+                    android:layout_width="295dp"
+                    android:layout_height="53dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="38dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="start"
+                        android:src="@drawable/edit" />
+
+                    <TextView
+                        android:id="@+id/setNewGoalBox"
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/setGoal"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/setGoalForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/goalInput"
+                        style="@style/smallBold"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/box_input"
+                        android:hint="@string/enterGoal"
+                        android:padding="12dp" />
+
+                    <Button
+                        android:id="@+id/submitGoalBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/subGoal"
+                        style="@style/smallBold"
+                        android:background="@drawable/rounded_button_light"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="293dp"
+                    android:layout_height="45dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="38dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="start"
+                        android:src="@drawable/history" />
+
+                    <TextView
+                        android:id="@+id/myGoals"
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/viewGoal"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/predictF"
+                style="@style/size26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/predict" />
+
+            <LinearLayout
+                android:id="@+id/predict"
+                android:layout_width="390dp"
+                android:layout_height="152dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_white2"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+
+                <LinearLayout
+                    android:layout_width="295dp"
+                    android:layout_height="53dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="38dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="start"
+                        android:src="@drawable/edit" />
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/getPrediction"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="293dp"
+                    android:layout_height="45dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="38dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="start"
+                        android:src="@drawable/history" />
+
+                    <TextView
+                        style="@style/size26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/myPrediction"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/small"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginEnd="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_button"
+                android:text="@string/setLocationB" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="415dp"
+        android:layout_height="74dp"
+        android:background="@drawable/upper_rounded_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+
+        />
+
+
+    <!-- FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNewGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="38dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.031"
+        app:srcCompat="@drawable/threedot" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="65dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02"
+        app:srcCompat="@drawable/summer_15009143"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
