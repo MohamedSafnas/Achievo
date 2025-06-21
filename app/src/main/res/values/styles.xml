@@ -41,6 +41,12 @@
 
     </style>
 
+    <style name="small1">
+        <item name="android:textColor">#AAAAAA</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
     <style name="smallBold">
         <item name="android:textColor">#FFffff</item>
         <item name="android:textSize">18sp</item>

@@ -68,7 +68,7 @@ public class GenerateStepActivity extends AppCompatActivity {
         }
 
 
-        
+
         new Handler().postDelayed(() -> {
             loadingBar.setVisibility(View.GONE);
 

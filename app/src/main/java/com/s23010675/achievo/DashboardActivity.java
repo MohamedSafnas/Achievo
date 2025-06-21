@@ -38,7 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        // Submit goal
+
 
         submitGoalBtn.setOnClickListener(v -> {
             String goal = goalInput.getText().toString().trim();
@@ -49,6 +49,13 @@ public class DashboardActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Please enter a goal", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        TextView mygoals = findViewById(R.id.myGoals);
+
+        mygoals.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, MyGoalsActivity.class);
+            startActivity(intent);
         });
 
 

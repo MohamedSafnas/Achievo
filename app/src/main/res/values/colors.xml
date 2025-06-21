@@ -4,5 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#87828282</color>
     <color name="lightGray">#D2D2D2</color>
-    <color name="gy">"#CCCCCC"</color>
+    <color name="gy">#CCCCCC</color>
+    <color name="yellow">#FFDE71</color>
+    <color name="custom">#FFDE71</color>
 </resources>

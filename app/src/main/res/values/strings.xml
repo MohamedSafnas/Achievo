@@ -45,15 +45,25 @@
     <string name="missGoaln">0</string>
     <string name="curStreak">🔥 Current Streak: </string>
     <string name="curStreakn">0 days</string>
-    <string name="gen">Generating Steps...</string>
+    <string name="gen">Generating Steps…</string>
     <string name="goal">Goal: </string>
     <string name="goaldes">Write a Book</string>
     <string name="vsteps">View Steps</string>
     <string name="done">Done!</string>
-    <string name="analize">Analyzing your goal...</string>
-    <string name="loadreq">Understanding required actions...</string>
-    <string name="gensbys">Generating achievable step-by-step instructions...</string>
-    <string name="extra">hh</string>
+    <string name="analize">Analyzing your goal…</string>
+    <string name="loadreq">Understanding required actions…</string>
+    <string name="gensbys">Generating achievable step-by-step instructions…</string>
+    <string name="predM">Predict Your Progress</string>
+    <string name="mygoals">My Goals</string>
+    <string name="nogoal">No Goals Set Yet…</string>
+    <string name="goalEx">Make Cup of Tea</string>
+    <string name="goalStps">No of Steps: </string>
+    <string name="goalStpsNo">07</string>
+    <string name="predMc">Choose how you want to get your prediction:</string>
+    <string name="cont">Continue</string>
+    <string name="bog">Based On Your Goals</string>
+    <string name="boc">Custom Activity</string>
+
 
 
 </resources>
