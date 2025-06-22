@@ -1,0 +1,229 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="417dp"
+        android:layout_height="92dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="96dp"
+            android:layout_height="112dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/achievo" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="91dp"
+            android:layout_height="66dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/summer_15009143" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="411dp"
+        android:layout_height="81dp"
+        android:background="@drawable/upper_rounded_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/homeI"
+                android:layout_width="203dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/home" />
+
+            <ImageView
+                android:id="@+id/profileI"
+                android:layout_width="189dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/profile_blue" />
+
+        </LinearLayout>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="379dp"
+        android:layout_height="626dp"
+        android:background="@drawable/light_blue_round"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="419dp"
+            android:background="@drawable/rounded_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <TextView
+                style="@style/small1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/achieved"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.748"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.01" />
+
+            <TextView
+                android:id="@+id/textView11"
+                style="@style/small1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/viewGoal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.319"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.01" />
+
+            <TextView
+                android:id="@+id/goalCount"
+                style="@style/smallBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goalTn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.216"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.01" />
+
+            <TextView
+                android:id="@+id/goalCount2"
+                style="@style/smallBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goalTn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.574"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.01" />
+
+            <Switch
+                android:id="@+id/darkmode"
+                style="@style/smallBold"
+                android:layout_width="206dp"
+                android:layout_height="44dp"
+                android:text="@string/darkmode"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.209"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.247" />
+
+            <TextView
+                android:id="@+id/logout"
+                style="@style/smallBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.253"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.906" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="37dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.125"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.926"
+                app:srcCompat="@drawable/logout1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/profilepic"
+            android:layout_width="196dp"
+            android:layout_height="163dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.034"
+            app:srcCompat="@drawable/profile" />
+
+        <ImageView
+            android:id="@+id/editProfile"
+            android:layout_width="43dp"
+            android:layout_height="29dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.812"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.251"
+            app:srcCompat="@drawable/edit" />
+
+        <TextView
+            android:id="@+id/username"
+            style="@style/size26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/displayName"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.285" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

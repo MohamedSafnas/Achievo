@@ -26,7 +26,7 @@
     <string name="base">Don’t have an account? </string>
     <string name="base2">Already have an account?</string>
     <string name="welcome">Welcome back, </string>
-    <string name="displayName">Safnas!</string>
+    <string name="displayName">Safnas</string>
     <string name="analytics">QUICK Analytics</string>
     <string name="manageG">MANAGE GOALS</string>
     <string name="predict">PREDICT FUTURE</string>
@@ -63,6 +63,9 @@
     <string name="cont">Continue</string>
     <string name="bog">Based On Your Goals</string>
     <string name="boc">Custom Activity</string>
+    <string name="achieved">Achieved</string>
+    <string name="darkmode">Dark Mode</string>
+    <string name="logout">Log Out</string>
 
 
 

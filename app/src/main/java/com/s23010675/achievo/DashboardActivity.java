@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,9 +53,22 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         TextView mygoals = findViewById(R.id.myGoals);
+        TextView predictNew = findViewById(R.id.predictNew);
+        ImageView home = findViewById(R.id.homeI);
+        ImageView profile = findViewById(R.id.profileI);
 
         mygoals.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, MyGoalsActivity.class);
+            startActivity(intent);
+        });
+
+        predictNew.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, PredictMethodActivity.class);
+            startActivity(intent);
+        });
+
+        profile.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
 

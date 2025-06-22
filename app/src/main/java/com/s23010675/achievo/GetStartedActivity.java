@@ -27,7 +27,6 @@ public class GetStartedActivity extends AppCompatActivity {
             });
 
 
-
         TextView textView = findViewById(R.id.slogen);
 
         Shader shader = new LinearGradient(

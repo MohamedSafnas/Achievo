@@ -13,14 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GenerateStepActivity extends AppCompatActivity {
 
-    TextView goalText, statusText1, statusText2, statusText3, goalDone, goalViewSteps;
+    TextView goalName, statusText1, statusText2, statusText3, goalDone, goalViewSteps;
     ImageView doneIcon, viewIcon;
     ProgressBar loadingBar;
 
-    boolean generationSuccess = false;
+
     boolean analizeSuccess = true;
     boolean undSuccess = true;
-    boolean gSuccess = false;
+    boolean gSuccess = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +28,14 @@ public class GenerateStepActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generate_steps);
 
 
-        goalText = findViewById(R.id.goalText);
+        goalName = findViewById(R.id.goalName);
         statusText1 = findViewById(R.id.statusText);
         statusText2 = findViewById(R.id.statusText2);
         statusText3 = findViewById(R.id.statusText3);
         goalDone = findViewById(R.id.des_back);
-        goalViewSteps = findViewById(R.id.goalText2);
-        doneIcon = findViewById(R.id.imageView7);
-        viewIcon = findViewById(R.id.imageView8);
+        goalViewSteps = findViewById(R.id.viewSteps);
+        doneIcon = findViewById(R.id.done_undone);
+        viewIcon = findViewById(R.id.view);
         loadingBar = findViewById(R.id.loadingSteps);
 
 
@@ -46,7 +46,7 @@ public class GenerateStepActivity extends AppCompatActivity {
 
 
         String goal = getIntent().getStringExtra("user_goal");
-        goalText.setText(goal);
+        goalName.setText(goal);
 
 
         if (analizeSuccess) {
@@ -72,6 +72,9 @@ public class GenerateStepActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             loadingBar.setVisibility(View.GONE);
 
+            boolean generationSuccess = (analizeSuccess && undSuccess && gSuccess);
+
+
             if (generationSuccess){
 
                 goalDone.setText("Done! Back");
@@ -79,17 +82,12 @@ public class GenerateStepActivity extends AppCompatActivity {
                 goalDone.setVisibility(View.VISIBLE);
                 doneIcon.setImageResource(R.drawable.done_);
                 doneIcon.setVisibility(View.VISIBLE);
-
                 goalViewSteps.setVisibility(View.VISIBLE);
                 viewIcon.setVisibility(View.VISIBLE);
 
                 Toast.makeText(this, "Goal processed successfully!", Toast.LENGTH_SHORT).show();
 
-                /*goalViewSteps.setOnClickListener(v -> {
-                    Intent intent = new Intent(GoalStepsActivity.this, StepListActivity.class);
-                    intent.putExtra("user_goal", goal);
-                    startActivity(intent);
-                });*/
+                //code for navigate to view steps page
 
             } else {
                 goalDone.setText("       Generation Failed ❌ Back");
@@ -104,8 +102,21 @@ public class GenerateStepActivity extends AppCompatActivity {
         }, 5500);
 
         TextView des_back = findViewById(R.id.des_back);
+        ImageView home = findViewById(R.id.homeI);
+        ImageView profile = findViewById(R.id.profileI);
+
 
         des_back.setOnClickListener(v -> {
+            Intent intent = new Intent(GenerateStepActivity.this, DashboardActivity.class);
+            startActivity(intent);
+        });
+
+        profile.setOnClickListener(v -> {
+            Intent intent = new Intent(GenerateStepActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        home.setOnClickListener(v -> {
             Intent intent = new Intent(GenerateStepActivity.this, DashboardActivity.class);
             startActivity(intent);
         });

@@ -207,7 +207,7 @@
                         android:src="@drawable/edit" />
 
                     <TextView
-                        android:id="@+id/setNewGoalBox2"
+                        android:id="@+id/setNewGoalBox"
                         style="@style/smallBold"
                         android:layout_width="124dp"
                         android:layout_height="40dp"
@@ -221,7 +221,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/setGoalForm2"
+                    android:id="@+id/setGoalForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -230,7 +230,7 @@
                     android:layout_marginBottom="20dp">
 
                     <EditText
-                        android:id="@+id/goalInput2"
+                        android:id="@+id/goalInput"
                         style="@style/smallBold"
                         android:layout_width="338dp"
                         android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                         android:textColor="@color/white" />
 
                     <Button
-                        android:id="@+id/submitGoalBtn2"
+                        android:id="@+id/submitGoalBtn"
                         style="@style/smallBold"
                         android:layout_width="337dp"
                         android:layout_height="wrap_content"
@@ -259,21 +259,33 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="415dp"
-        android:layout_height="74dp"
+        android:layout_width="411dp"
+        android:layout_height="81dp"
         android:background="@drawable/upper_rounded_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        >
+            <ImageView
+                android:id="@+id/homeI"
+                android:layout_width="203dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/home" />
 
-        <ImageView
-            android:id="@+id/tohome"
-            android:layout_width="106dp"
-            android:layout_height="68dp"
-            app:srcCompat="@drawable/home" />
+            <ImageView
+                android:id="@+id/profileI"
+                android:layout_width="189dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/profile_blue" />
+
+        </LinearLayout>
+
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 

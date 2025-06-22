@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +18,10 @@ public class MyGoalsActivity extends AppCompatActivity {
 
 
 
-    LinearLayout setGoalForm2;
-    TextView setNewGoalBox2;
-    Button submitGoalBtn2;
-    EditText goalInput2;
+    LinearLayout setGoalForm;
+    TextView setNewGoalBox;
+    Button submitGoalBtn;
+    EditText goalInput;
 
 
     @Override
@@ -29,22 +30,22 @@ public class MyGoalsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_goals);
 
 
-        setNewGoalBox2 = findViewById(R.id.setNewGoalBox2);
-        setGoalForm2 = findViewById(R.id.setGoalForm2);
-        submitGoalBtn2 = findViewById(R.id.submitGoalBtn2);
-        goalInput2 = findViewById(R.id.goalInput2);
+        setNewGoalBox = findViewById(R.id.setNewGoalBox);
+        setGoalForm = findViewById(R.id.setGoalForm);
+        submitGoalBtn = findViewById(R.id.submitGoalBtn);
+        goalInput = findViewById(R.id.goalInput);
 
-        setNewGoalBox2.setOnClickListener(v -> {
-            if (setGoalForm2.getVisibility() == View.GONE) {
-                setGoalForm2.setVisibility(View.VISIBLE);
+        setNewGoalBox.setOnClickListener(v -> {
+            if (setGoalForm.getVisibility() == View.GONE) {
+                setGoalForm.setVisibility(View.VISIBLE);
             } else {
-                setGoalForm2.setVisibility(View.GONE);
+                setGoalForm.setVisibility(View.GONE);
             }
         });
 
 
-        submitGoalBtn2.setOnClickListener(v -> {
-            String goal = goalInput2.getText().toString().trim();
+        submitGoalBtn.setOnClickListener(v -> {
+            String goal = goalInput.getText().toString().trim();
             if (!goal.isEmpty()) {
                 Intent intent = new Intent(MyGoalsActivity.this, GenerateStepActivity.class);
                 intent.putExtra("user_goal", goal);
@@ -52,6 +53,20 @@ public class MyGoalsActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Please enter a goal", Toast.LENGTH_SHORT).show();
             }
+        });
+
+
+        ImageView home = findViewById(R.id.homeI);
+        ImageView profile = findViewById(R.id.profileI);
+
+        profile.setOnClickListener(v -> {
+            Intent intent = new Intent(MyGoalsActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(MyGoalsActivity.this, DashboardActivity.class);
+            startActivity(intent);
         });
     }
 }

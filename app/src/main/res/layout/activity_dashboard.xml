@@ -7,8 +7,8 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="415dp"
-        android:layout_height="78dp"
+        android:layout_width="417dp"
+        android:layout_height="92dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,8 +43,8 @@
 
 
     <ScrollView
-        android:layout_width="409dp"
-        android:layout_height="708dp"
+        android:layout_width="414dp"
+        android:layout_height="704dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -349,6 +349,7 @@
                         android:src="@drawable/edit" />
 
                     <TextView
+                        android:id="@+id/predictNew"
                         style="@style/size26"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -404,37 +405,36 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="415dp"
-        android:layout_height="74dp"
+        android:layout_width="411dp"
+        android:layout_height="81dp"
         android:background="@drawable/upper_rounded_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/homeI"
+                android:layout_width="203dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/home" />
+
+            <ImageView
+                android:id="@+id/profileI"
+                android:layout_width="189dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/profile_blue" />
+
+        </LinearLayout>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-        />
-
-
-    <!-- FAB -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNewGoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="38dp"
-        android:layout_height="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.957"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031"
-        app:srcCompat="@drawable/threedot" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
