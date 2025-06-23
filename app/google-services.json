@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "320425375814",
+    "project_id": "the-achievo-app",
+    "storage_bucket": "the-achievo-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320425375814:android:d10c90c4dd329175b3f247",
+        "android_client_info": {
+          "package_name": "com.s23010675.achievo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASLVGCkUMLhUkD6qoLSsHd_bjjvU93nHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -34,7 +34,7 @@
     <string name="viewGoal">My Goals</string>
     <string name="getPrediction">Get New Prediction</string>
     <string name="myPrediction">My Predictions</string>
-    <string name="setLocationB">Get Location Based Goals</string>
+    <string name="getLocation">Find Goal Related Locations</string>
     <string name="enterGoal">Enter your goal</string>
     <string name="subGoal">GET STEP-BY-STEP INSTRUSTION</string>
     <string name="goalT">✅ Goals on Track: </string>
@@ -66,6 +66,7 @@
     <string name="achieved">Achieved</string>
     <string name="darkmode">Dark Mode</string>
     <string name="logout">Log Out</string>
+    <string name="api_key">AIzaSyBAjQmmds_4BwYVsUb1ZgygdmHGN01AhPo</string>
 
 
 

@@ -2,6 +2,7 @@ package com.s23010675.achievo;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,15 +17,33 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DashboardActivity extends AppCompatActivity {
 
     LinearLayout setGoalForm;
-    TextView setNewGoalBox;
+    TextView setNewGoalBox,userName;
     Button submitGoalBtn;
     EditText goalInput;
+    UsersDbHelper dbHelper;
+
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        userName = findViewById(R.id.userN);
+        dbHelper = new UsersDbHelper(this);
+
+
+        SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
+        String email = sp.getString("email", null);
+
+
+        if (email != null) {
+            UsersDbHelper.User user = dbHelper.getUserProfile(email);
+            if (user != null) {
+                userName.setText(user.username);
+            }
+        }
+
 
         setNewGoalBox = findViewById(R.id.setNewGoalBox);
         setGoalForm = findViewById(R.id.setGoalForm);
@@ -56,6 +75,8 @@ public class DashboardActivity extends AppCompatActivity {
         TextView predictNew = findViewById(R.id.predictNew);
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
+        Button getLocation = findViewById(R.id.getLocationBtn);
+
 
         mygoals.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, MyGoalsActivity.class);
@@ -69,6 +90,11 @@ public class DashboardActivity extends AppCompatActivity {
 
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        getLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, FindLocationActivity.class);
             startActivity(intent);
         });
 

@@ -183,17 +183,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilepic"
-            android:layout_width="196dp"
-            android:layout_height="163dp"
+            android:layout_width="153dp"
+            android:layout_height="154dp"
+            android:src="@drawable/profile"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.034"
-            app:srcCompat="@drawable/profile" />
+            app:layout_constraintVertical_bias="0.034" />
+
 
         <ImageView
             android:id="@+id/editProfile"

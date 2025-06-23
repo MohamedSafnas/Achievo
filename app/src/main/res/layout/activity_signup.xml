@@ -43,13 +43,14 @@
         app:layout_constraintVertical_bias="0.635">
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/username"
             style="@style/bodytext"
             android:layout_width="296dp"
             android:layout_height="54dp"
             android:ems="10"
             android:inputType="text"
-            android:text="@string/username"
+            android:hint="@string/username"
+            android:textColorHint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.512"
@@ -58,13 +59,14 @@
             app:layout_constraintVertical_bias="0.093" />
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/email"
             style="@style/bodytext"
             android:layout_width="296dp"
             android:layout_height="54dp"
             android:ems="10"
-            android:inputType="text"
-            android:text="@string/email"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"
+            android:textColorHint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.536"
@@ -73,13 +75,14 @@
             app:layout_constraintVertical_bias="0.263" />
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/password"
             style="@style/bodytext"
             android:layout_width="296dp"
             android:layout_height="54dp"
             android:ems="10"
-            android:inputType="text"
-            android:text="@string/password"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:textColorHint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.512"
@@ -88,13 +91,14 @@
             app:layout_constraintVertical_bias="0.434" />
 
         <EditText
-            android:id="@+id/editTextText4"
+            android:id="@+id/cpassword"
             style="@style/bodytext"
             android:layout_width="296dp"
             android:layout_height="54dp"
             android:ems="10"
-            android:inputType="text"
-            android:text="@string/cpassword"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:hint="@string/cpassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.512"
