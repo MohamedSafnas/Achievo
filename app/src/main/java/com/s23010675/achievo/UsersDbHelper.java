@@ -72,6 +72,15 @@ public class UsersDbHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    //check email exist method
+    public boolean checkEmailExists(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE email = ?", new String[]{email});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
+
     //password reset method
     public boolean resetPassword(String email, String newPassword) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -135,56 +144,4 @@ public class UsersDbHelper extends SQLiteOpenHelper {
         }
     }
 }
-
-
-
-
-
-
-
-/*package com.s23010675.achievo;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-public class UsersDbHelper{
-
-    private Context context;
-    public static final String TABLE_NAME = "users";
-
-    public UsersDbHelper(Context context) {
-        this.context = context;
-    }
-
-    public boolean signup(String username, String email, String password){
-        SQLiteDatabase db = new DataBaseHelper(context).getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put("USERNAME", username);
-        contentValues.put("EMAIL", email);
-        contentValues.put("PASSWORD", password);
-
-        long response = db.insert(TABLE_NAME,null,contentValues);
-        return response != -1;
-    }
-
-    public boolean login(String username, String password){
-        SQLiteDatabase db = new DataBaseHelper(context).getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT USERNAME, PASSWORD FROM users WHERE USERNAME = username",null);
-
-        if (cursor.moveToFirst()) {
-            String user = cursor.getString(cursor.getColumnIndexOrThrow("USERNAME"));
-            String pass = cursor.getString(cursor.getColumnIndexOrThrow("PASSWORD"));
-
-            return user.equals(username) && pass.equals(password);
-        }
-
-        cursor.close();
-        return false;
-    }
-
-}
-*/
 
