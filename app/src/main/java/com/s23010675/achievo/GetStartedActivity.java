@@ -21,6 +21,7 @@ public class GetStartedActivity extends AppCompatActivity {
 
         Button btn = findViewById(R.id.getStartedBtn);
 
+        //navigate to Login page
         btn.setOnClickListener(v -> {
                 Intent intent = new Intent(GetStartedActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -29,6 +30,7 @@ public class GetStartedActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.slogen);
 
+        //for the color gradiant
         Shader shader = new LinearGradient(
                 0, 0, 0, textView.getTextSize(),
                 new int[]{Color.parseColor("#FFFFFF"), Color.parseColor("#999999")},

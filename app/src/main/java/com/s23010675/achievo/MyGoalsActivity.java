@@ -16,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MyGoalsActivity extends AppCompatActivity {
 
-
-
     LinearLayout setGoalForm;
     TextView setNewGoalBox;
     Button submitGoalBtn;
@@ -35,6 +33,7 @@ public class MyGoalsActivity extends AppCompatActivity {
         submitGoalBtn = findViewById(R.id.submitGoalBtn);
         goalInput = findViewById(R.id.goalInput);
 
+        //trigger when click the set new goal
         setNewGoalBox.setOnClickListener(v -> {
             if (setGoalForm.getVisibility() == View.GONE) {
                 setGoalForm.setVisibility(View.VISIBLE);
@@ -43,7 +42,7 @@ public class MyGoalsActivity extends AppCompatActivity {
             }
         });
 
-
+        //trigger when the generate steps button clicks
         submitGoalBtn.setOnClickListener(v -> {
             String goal = goalInput.getText().toString().trim();
             if (!goal.isEmpty()) {
@@ -59,11 +58,13 @@ public class MyGoalsActivity extends AppCompatActivity {
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
 
+        //navigate to Profile page
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(MyGoalsActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Dashboard page
         home.setOnClickListener(v -> {
             Intent intent = new Intent(MyGoalsActivity.this, DashboardActivity.class);
             startActivity(intent);

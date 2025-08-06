@@ -7,7 +7,7 @@
     android:background="@drawable/gradient_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="415dp"
+        android:layout_width="match_parent"
         android:layout_height="78dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="96dp"
-            android:layout_height="112dp"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -29,9 +29,10 @@
             app:srcCompat="@drawable/achievo" />
 
         <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="91dp"
-            android:layout_height="66dp"
+            android:id="@+id/darkmode"
+            android:layout_width="70dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -43,29 +44,32 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="411dp"
-        android:layout_height="81dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/upper_rounded_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="193dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="150dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/homeI"
-                android:layout_width="203dp"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginEnd="90dp"
                 app:srcCompat="@drawable/home" />
 
             <ImageView
                 android:id="@+id/profileI"
-                android:layout_width="189dp"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="48dp"
                 app:srcCompat="@drawable/profile_blue" />
 
         </LinearLayout>
@@ -74,8 +78,12 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="347dp"
-        android:layout_height="392dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="180dp"
         android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,24 +104,68 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.071" />
 
-        <TextView
-            android:id="@+id/goalText"
-            style="@style/smallBold"
-            android:layout_width="285dp"
-            android:layout_height="42dp"
-            android:text="@string/predMc"
-            android:textColor="@color/yellow"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.231" />
+            app:layout_constraintVertical_bias="0.397">
+
+            <TextView
+                android:id="@+id/goalText"
+                style="@style/smallBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/predMc"
+                android:textColor="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.231" />
+
+            <RadioGroup
+                android:id="@+id/predictionRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <RadioButton
+                    android:id="@+id/bogBtn"
+                    android:layout_width="285dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/slightly_rounded"
+                    android:text="@string/bog" />
+
+                <RadioButton
+                    android:id="@+id/bocBtn"
+                    android:layout_width="285dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/slightly_rounded"
+                    android:text="@string/boc" />
+            </RadioGroup>
+        </LinearLayout>
 
         <Button
             android:id="@+id/conbtn"
             style="@style/smallBold"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
             android:background="@drawable/green_button"
             android:text="@string/cont"
             android:textColor="@color/black"
@@ -123,36 +175,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.915" />
-
-        <RadioGroup
-            android:id="@+id/predictionRadioGroup"
-            android:layout_width="291dp"
-            android:layout_height="121dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
-
-            <RadioButton
-                android:id="@+id/bogBtn"
-                android:layout_width="285dp"
-                android:layout_height="52dp"
-                android:background="@drawable/slightly_rounded"
-                android:text="@string/bog" />
-
-            <RadioButton
-                android:id="@+id/bocBtn"
-                android:layout_width="285dp"
-                android:layout_height="52dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/slightly_rounded"
-                android:text="@string/boc" />
-        </RadioGroup>
 
         <ImageView
             android:id="@+id/backI"

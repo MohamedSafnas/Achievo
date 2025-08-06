@@ -3,7 +3,6 @@ package com.s23010675.achievo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,26 +10,28 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class LoginActivity extends AppCompatActivity {
 
-    EditText emailEditText, passwordEditText;
-    UsersDbHelper dbHelper;
-
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        dbHelper = new UsersDbHelper(this);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         EditText emailInput = findViewById(R.id.emailInput);
         EditText passwordInput = findViewById(R.id.passwordInput);
-
+        Button loginBtn = findViewById(R.id.loginBtn);
         TextView sign = findViewById(R.id.sign);
         TextView forget = findViewById(R.id.forgetT);
-        Button loginBtn = findViewById(R.id.loginBtn);
 
         loginBtn.setOnClickListener(v -> {
             String userEmail = emailInput.getText().toString().trim();
@@ -41,36 +42,54 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            //login using database
-            String username = dbHelper.login(userEmail, pass);
+            mAuth.signInWithEmailAndPassword(userEmail, pass)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-            if (username != null) {
-                //save email
-                SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
-                sp.edit().putString("email", userEmail).apply();
+                            if (firebaseUser != null && firebaseUser.isEmailVerified()) {
+                                String uid = firebaseUser.getUid();
 
-                Toast.makeText(this, "Login successful! Welcome " + username, Toast.LENGTH_SHORT).show();
+                                // Save session
+                                SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
+                                sp.edit().putString("uid", uid).apply();
 
-                //navigate to Dashboard
-                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-            }
+                                // Fetch username from Firestore
+                                db.collection("users").document(uid).get()
+                                        .addOnSuccessListener(document -> {
+                                            if (document.exists()) {
+                                                String username = document.getString("username");
+                                                Toast.makeText(this, "Login successful! Welcome " + username, Toast.LENGTH_SHORT).show();
+
+                                                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                            } else {
+                                Toast.makeText(this, "Please verify your email before logging in.", Toast.LENGTH_LONG).show();
+                                mAuth.signOut(); // logout unverified
+                            }
+
+                        } else {
+                            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
-        //navigate to reset password page
+        // Navigate to reset password page
         forget.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
             startActivity(intent);
         });
 
-        //navigate to signup page
+        // Navigate to signup page
         sign.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
         });
     }
-
 }

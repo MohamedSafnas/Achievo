@@ -15,11 +15,11 @@ public class PredictMethodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_predict_method_selection);
 
-
         RadioGroup radioGroup = findViewById(R.id.predictionRadioGroup);
 
-
         int selectedId = radioGroup.getCheckedRadioButtonId();
+
+        //check selected method by Id
         if (selectedId == R.id.bogBtn) {
             //based on your goals
         } else if (selectedId == R.id.bocBtn) {
@@ -30,16 +30,19 @@ public class PredictMethodActivity extends AppCompatActivity {
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
 
+        //navigate to Dashboard page
         backI.setOnClickListener(v -> {
             Intent intent = new Intent(PredictMethodActivity.this, DashboardActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Profile page
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(PredictMethodActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Dashboard page
         home.setOnClickListener(v -> {
             Intent intent = new Intent(PredictMethodActivity.this, DashboardActivity.class);
             startActivity(intent);

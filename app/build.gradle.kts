@@ -44,13 +44,19 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
-    implementation ("com.google.firebase:firebase-auth:22.1.2")
-    implementation ("com.google.firebase:firebase-firestore:24.10.2")
 
-    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    implementation (libs.play.services.maps)
+
+    implementation (libs.circleimageview)
+
+    implementation (libs.volley)
+    implementation (libs.okhttp)
+
 
 
 }

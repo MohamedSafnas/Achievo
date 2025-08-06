@@ -12,84 +12,93 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import java.util.List;
+
 public class ResetPasswordActivity extends AppCompatActivity {
 
-    EditText emailInput, newPasswordInput, confirmPasswordInput;
-    UsersDbHelper dbHelper;
-    Button resetbtn;
-    ImageView back;
+    private EditText emailInput;
+    private Button resetBtn;
+    private ImageView back;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-
-        back = findViewById(R.id.backI);
-        resetbtn = findViewById(R.id.resetbtn);
         emailInput = findViewById(R.id.emailInput);
-        newPasswordInput = findViewById(R.id.newPasswordInput);
-        confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
+        resetBtn = findViewById(R.id.resetbtn);
+        back = findViewById(R.id.backI);
 
-        dbHelper = new UsersDbHelper(this);
+        mAuth = FirebaseAuth.getInstance();
 
+        resetBtn.setVisibility(View.GONE); // Hide reset button initially
 
         emailInput.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE ||
                     (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                String email = emailInput.getText().toString().trim();
+
+                String email = emailInput.getText().toString().trim().toLowerCase();
 
                 if (email.isEmpty()) {
-                    Toast.makeText(this, "Enter your email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     return true;
                 }
 
-                if (dbHelper.checkEmailExists(email)) {
-                    // Show new password and confirm password fields + button
-                    newPasswordInput.setVisibility(View.VISIBLE);
-                    confirmPasswordInput.setVisibility(View.VISIBLE);
-                    resetbtn.setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(this, "Email not found!", Toast.LENGTH_SHORT).show();
-                }
+                // Check if the email is registered in Firebase Auth
+                mAuth.fetchSignInMethodsForEmail(email)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                SignInMethodQueryResult result = task.getResult();
+                                if (result != null) {
+                                    List<String> methods = result.getSignInMethods();
+                                    if (methods != null && !methods.isEmpty()) {
+                                        // email exists
+                                        Toast.makeText(this, "Email found. Methods: " + methods.toString(), Toast.LENGTH_SHORT).show();
+                                        resetBtn.setVisibility(View.VISIBLE);
+                                    } else {
+                                        Toast.makeText(this, "Email not found. Try again.", Toast.LENGTH_SHORT).show();
+                                        resetBtn.setVisibility(View.GONE);
+                                    }
+                                } else {
+                                    Toast.makeText(this, "No result from fetchSignInMethods", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
                 return true;
             }
             return false;
         });
 
+        resetBtn.setOnClickListener(v -> {
+            String email = emailInput.getText().toString().trim().toLowerCase();
 
-        resetbtn.setOnClickListener(v -> {
-            String email = emailInput.getText().toString().trim();
-            String newPass = newPasswordInput.getText().toString();
-            String confirmPass = confirmPasswordInput.getText().toString();
-
-            if (newPass.isEmpty() || confirmPass.isEmpty()) {
-                Toast.makeText(this, "Please enter both fields", Toast.LENGTH_SHORT).show();
+            if (email.isEmpty()) {
+                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (!newPass.equals(confirmPass)) {
-                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            boolean success = dbHelper.updatePassword(email, newPass);
-            if (success) {
-                Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show();
-                finish();
-            } else {
-                Toast.makeText(this, "Error updating password", Toast.LENGTH_SHORT).show();
-            }
-
-
-            Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
-            startActivity(intent);
+            mAuth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(this, "Reset link sent to your email.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class));
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to send link: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
         });
 
-        back.setOnClickListener((v -> {
-            Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }));
-
+        back.setOnClickListener(v -> {
+            startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class));
+            finish();
+        });
     }
 }

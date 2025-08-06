@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //for splash page auto navigate to Get Started page
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this, GetStartedActivity.class);
             startActivity(intent);

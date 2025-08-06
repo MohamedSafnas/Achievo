@@ -66,7 +66,14 @@
     <string name="achieved">Achieved</string>
     <string name="darkmode">Dark Mode</string>
     <string name="logout">Log Out</string>
+    <string name="locationList">Saved Locations</string>
     <string name="api_key">AIzaSyBAjQmmds_4BwYVsUb1ZgygdmHGN01AhPo</string>
+    <string name="locationEmpty">Locations Not Added Yet!</string>
+    <string name="addLocation">Add New Location</string>
+    <string name="progress">Progress: 60%</string>
+    <string name="findLoc">Search location</string>
+    <string name="plus_add">\u2795 Add New Location</string>
+    <string name="deepseek_api_key">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</string>
 
 
 

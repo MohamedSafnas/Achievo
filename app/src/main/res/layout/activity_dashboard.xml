@@ -8,8 +8,8 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="417dp"
-        android:layout_height="92dp"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="96dp"
-            android:layout_height="112dp"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -30,9 +30,10 @@
             app:srcCompat="@drawable/achievo" />
 
         <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="91dp"
-            android:layout_height="66dp"
+            android:id="@+id/darkmode"
+            android:layout_width="70dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -44,10 +45,11 @@
 
 
     <ScrollView
-        android:layout_width="414dp"
-        android:layout_height="704dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
-        android:layout_marginBottom="35dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
@@ -78,7 +80,7 @@
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/size28"
-                    android:layout_width="180dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/welcome"
@@ -97,20 +99,19 @@
 
 
             <TextView
-                android:id="@+id/textView8"
                 style="@style/size26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
                 android:layout_marginTop="18dp"
                 android:text="@string/analytics" />
 
             <LinearLayout
                 android:id="@+id/analytics"
-                android:layout_width="390dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"
+                android:layout_margin="15dp"
                 android:background="@drawable/rounded_button"
                 android:clickable="true"
                 android:focusable="true"
@@ -120,12 +121,14 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -143,12 +146,13 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -166,12 +170,13 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -189,12 +194,13 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:gravity="start"
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -213,43 +219,46 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView7"
                 style="@style/size26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/manageG" />
 
             <LinearLayout
                 android:id="@+id/goalManager"
-                android:layout_width="390dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_white2"
                 android:clickable="true"
                 android:focusable="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="5dp">
 
 
                 <LinearLayout
-                    android:layout_width="295dp"
-                    android:layout_height="53dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="38dp"
-                        android:layout_height="36dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="start"
                         android:src="@drawable/edit" />
 
                     <TextView
                         android:id="@+id/setNewGoalBox"
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -275,6 +284,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/box_input"
                         android:hint="@string/enterGoal"
+                        android:textColorHint="#888888"
                         android:padding="12dp"
                         android:textColor="@color/white" />
 
@@ -289,20 +299,23 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="293dp"
-                    android:layout_height="45dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="15dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="38dp"
-                        android:layout_height="36dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="start"
                         android:src="@drawable/history" />
 
                     <TextView
                         android:id="@+id/myGoals"
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -316,7 +329,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/predictF"
                 style="@style/size26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -326,8 +338,10 @@
 
             <LinearLayout
                 android:id="@+id/predict"
-                android:layout_width="390dp"
-                android:layout_height="152dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_white2"
@@ -335,24 +349,27 @@
                 android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="5dp">
 
 
                 <LinearLayout
-                    android:layout_width="295dp"
-                    android:layout_height="53dp"
+                    android:id="@+id/predictNew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="15dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="38dp"
-                        android:layout_height="36dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="start"
                         android:src="@drawable/edit" />
 
                     <TextView
-                        android:id="@+id/predictNew"
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -363,19 +380,22 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="293dp"
-                    android:layout_height="45dp"
+                    android:id="@+id/predictHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="15dp"
                     android:gravity="start"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="38dp"
-                        android:layout_height="36dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="start"
                         android:src="@drawable/history" />
 
                     <TextView
-                        style="@style/size26"
+                        style="@style/bodytext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -392,12 +412,26 @@
             <Button
                 android:id="@+id/getLocationBtn"
                 style="@style/small"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="35dp"
+                android:layout_margin="15dp"
+                android:padding="12dp"
                 android:background="@drawable/rounded_button"
                 android:text="@string/getLocation"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/LocationList"
+                style="@style/small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="55dp"
+                android:padding="12dp"
+                android:background="@drawable/rounded_button"
+                android:text="@string/locationList"
                 android:textColor="@color/white" />
 
 
@@ -406,29 +440,32 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="411dp"
-        android:layout_height="81dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/upper_rounded_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="193dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="150dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/homeI"
-                android:layout_width="203dp"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginEnd="90dp"
                 app:srcCompat="@drawable/home" />
 
             <ImageView
                 android:id="@+id/profileI"
-                android:layout_width="189dp"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="48dp"
                 app:srcCompat="@drawable/profile_blue" />
 
         </LinearLayout>

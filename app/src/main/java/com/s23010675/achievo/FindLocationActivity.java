@@ -38,7 +38,6 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_location);
 
-
         searchLocation = findViewById(R.id.search_location);
         addButton = findViewById(R.id.addLocation);
 
@@ -64,6 +63,7 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
             return false;
         });
 
+        //trigger when the add to list clicked
         addButton.setOnClickListener(v -> {
             if (selectedLatLng != null) {
                 Toast.makeText(this, "Location added: " + locationName, Toast.LENGTH_SHORT).show();
@@ -79,12 +79,13 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
 
-
+        //navigate to Profile page
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(FindLocationActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Dashboard page
         home.setOnClickListener(v -> {
             Intent intent = new Intent(FindLocationActivity.this, DashboardActivity.class);
             startActivity(intent);
@@ -106,9 +107,10 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
         Map.setOnMapClickListener(latLng -> {
             Map.clear();
 
-            // Reverse geocode to get address
+            //reverse geocode code to get the address
             Geocoder geocoder = new Geocoder(FindLocationActivity.this);
             locationName = "Selected Location";
+
             try {
                 List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
                 if (addresses != null && !addresses.isEmpty()) {

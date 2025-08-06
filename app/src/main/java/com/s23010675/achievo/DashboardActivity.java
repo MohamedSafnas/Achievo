@@ -13,6 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -20,36 +25,43 @@ public class DashboardActivity extends AppCompatActivity {
     TextView setNewGoalBox,userName;
     Button submitGoalBtn;
     EditText goalInput;
-    UsersDbHelper dbHelper;
 
+    FirebaseAuth auth;
+    FirebaseFirestore firestore;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        // Firebase
+        auth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
+        // Views
         userName = findViewById(R.id.userN);
-        dbHelper = new UsersDbHelper(this);
-
-
-        SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
-        String email = sp.getString("email", null);
-
-
-        if (email != null) {
-            UsersDbHelper.User user = dbHelper.getUserProfile(email);
-            if (user != null) {
-                userName.setText(user.username);
-            }
-        }
-
-
         setNewGoalBox = findViewById(R.id.setNewGoalBox);
         setGoalForm = findViewById(R.id.setGoalForm);
         submitGoalBtn = findViewById(R.id.submitGoalBtn);
         goalInput = findViewById(R.id.goalInput);
 
+        // Fetch and display username
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            firestore.collection("users").document(uid).get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String username = documentSnapshot.getString("username");
+                            userName.setText(username);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to load username", Toast.LENGTH_SHORT).show();
+                    });
+        }
+
+        // Toggle goal form
         setNewGoalBox.setOnClickListener(v -> {
             if (setGoalForm.getVisibility() == View.GONE) {
                 setGoalForm.setVisibility(View.VISIBLE);
@@ -58,8 +70,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-
-
+        // Submit goal
         submitGoalBtn.setOnClickListener(v -> {
             String goal = goalInput.getText().toString().trim();
             if (!goal.isEmpty()) {
@@ -72,32 +83,41 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         TextView mygoals = findViewById(R.id.myGoals);
-        TextView predictNew = findViewById(R.id.predictNew);
+        LinearLayout predictNew = findViewById(R.id.predictNew);
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
         Button getLocation = findViewById(R.id.getLocationBtn);
+        Button viewLocation = findViewById(R.id.LocationList);
 
-
+        //navigate to My Goals page
         mygoals.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, MyGoalsActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Predict Future page
         predictNew.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, PredictMethodActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Profile page
         profile.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Find Location page
         getLocation.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, FindLocationActivity.class);
             startActivity(intent);
         });
 
+        //navigate to Saved Locations page
+        viewLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, SavedLocationsActivity.class);
+            startActivity(intent);
+        });
 
     }
 }

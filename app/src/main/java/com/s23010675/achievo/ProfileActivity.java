@@ -1,14 +1,19 @@
 package com.s23010675.achievo;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,85 +23,109 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-
     private static final int PICK_IMAGE_REQUEST = 1;
-    ImageView editIcon;
-    CircleImageView profilePic;
 
-    UsersDbHelper dbHelper;
-    String userEmail;
+    CircleImageView profilePic;
+    ImageView editIcon;
     TextView userName;
+
+    FirebaseAuth mAuth;
+    FirebaseFirestore firestore;
+
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
         profilePic = findViewById(R.id.profilepic);
         editIcon = findViewById(R.id.editProfile);
         userName = findViewById(R.id.username);
 
-        dbHelper = new UsersDbHelper(this);
+        mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
-        //get email from sharedPreferences
-        SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
-        userEmail = sp.getString("email", null);
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
+        uid = user.getUid();
+
+        // Load user profile from Firestore
         loadUserProfile();
 
-        View.OnClickListener pickImageListener = v -> {
+        // Handle image picking
+        View.OnClickListener pickImage = v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
         };
 
-        profilePic.setOnClickListener(pickImageListener);
-        editIcon.setOnClickListener(pickImageListener);
+        profilePic.setOnClickListener(pickImage);
+        editIcon.setOnClickListener(pickImage);
 
-        //bottom navigation
+        // Bottom navigation
         TextView logout = findViewById(R.id.logout);
         ImageView home = findViewById(R.id.homeI);
-        ImageView profile = findViewById(R.id.profileI);
-
 
         logout.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-            startActivity(intent);
+            mAuth.signOut();
+            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+            finish();
         });
 
         home.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, DashboardActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
         });
-
     }
 
-    void loadUserProfile() {
-        UsersDbHelper.User user = dbHelper.getUserProfile(userEmail);
-        if (user != null) {
-            userName.setText(user.username);
-            if (user.profilePicUri != null && !user.profilePicUri.isEmpty()) {
-                File file = new File(user.profilePicUri);
-                if (file.exists()) {
-                    profilePic.setImageURI(Uri.parse(user.profilePicUri));
-                }
-            }
-        }
+    private void loadUserProfile() {
+        firestore.collection("users").document(uid)
+                .get()
+                .addOnSuccessListener(doc -> {
+                    if (doc.exists()) {
+                        String uname = doc.getString("username");
+                        String picUri = doc.getString("profilePicUri");
+
+                        userName.setText(uname);
+                        if (picUri != null && !picUri.isEmpty()) {
+                            File file = new File(picUri);
+                            if (file.exists()) {
+                                profilePic.setImageURI(Uri.parse(picUri));
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to load profile", Toast.LENGTH_SHORT).show();
+                });
     }
 
     @Override
-    protected void onActivityResult(int reqCode, int resCode, Intent data) {
+    protected void onActivityResult(int reqCode, int resCode, @Nullable Intent data) {
         super.onActivityResult(reqCode, resCode, data);
         if (reqCode == PICK_IMAGE_REQUEST && resCode == RESULT_OK && data != null) {
             Uri imgUri = data.getData();
             String path = saveImage(imgUri);
-            profilePic.setImageURI(Uri.parse(path));
-            dbHelper.updateProfilePic(userEmail, path);
+            if (path != null) {
+                profilePic.setImageURI(Uri.parse(path));
+                firestore.collection("users").document(uid)
+                        .update("profilePicUri", path)
+                        .addOnSuccessListener(unused ->
+                                Toast.makeText(this, "Profile picture updated", Toast.LENGTH_SHORT).show()
+                        )
+                        .addOnFailureListener(e ->
+                                Toast.makeText(this, "Failed to update profile picture", Toast.LENGTH_SHORT).show()
+                        );
+            }
         }
     }
 
-    String saveImage(Uri uri) {
+    private String saveImage(Uri uri) {
         try {
             InputStream in = getContentResolver().openInputStream(uri);
             File file = new File(getFilesDir(), "profile_" + System.currentTimeMillis() + ".jpg");
@@ -117,5 +146,3 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 }
-
-

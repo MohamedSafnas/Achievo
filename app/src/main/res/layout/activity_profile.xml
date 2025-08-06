@@ -7,8 +7,8 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="417dp"
-        android:layout_height="92dp"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="96dp"
-            android:layout_height="112dp"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -29,9 +29,10 @@
             app:srcCompat="@drawable/achievo" />
 
         <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="91dp"
-            android:layout_height="66dp"
+            android:id="@+id/darkmode"
+            android:layout_width="70dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -44,29 +45,32 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="411dp"
-        android:layout_height="81dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/upper_rounded_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="193dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="150dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/homeI"
-                android:layout_width="203dp"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginEnd="90dp"
                 app:srcCompat="@drawable/home" />
 
             <ImageView
                 android:id="@+id/profileI"
-                android:layout_width="189dp"
-                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_height="48dp"
                 app:srcCompat="@drawable/profile_blue" />
 
         </LinearLayout>
@@ -144,7 +148,7 @@
                 app:layout_constraintVertical_bias="0.01" />
 
             <Switch
-                android:id="@+id/darkmode"
+                android:id="@+id/darkmodeSwitch"
                 style="@style/smallBold"
                 android:layout_width="206dp"
                 android:layout_height="44dp"
@@ -154,7 +158,8 @@
                 app:layout_constraintHorizontal_bias="0.209"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.247" />
+                app:layout_constraintVertical_bias="0.247"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <TextView
                 android:id="@+id/logout"
