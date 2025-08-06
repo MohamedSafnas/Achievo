@@ -7,7 +7,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,9 +26,7 @@ public class AIService {
     }
 
     private final OkHttpClient client = new OkHttpClient();
-    private final String API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base";
-    private final String API_TOKEN = "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"; // 🔁 Replace with your Hugging Face token
-
+    private final String API_URL = "https://gemini-api-t0jr.onrender.com/generate"; // ✅ Your live endpoint
     private final Context context;
 
     public AIService(Context context) {
@@ -40,39 +37,33 @@ public class AIService {
         new Thread(() -> {
             try {
                 JSONObject payload = new JSONObject();
-                payload.put("inputs", "Instruction: Give 5 clear steps to achieve the goal.\nGoal: " + goalPrompt);
-
-                JSONObject parameters = new JSONObject();
-                parameters.put("temperature", 0.7);
-                parameters.put("max_new_tokens", 200);
-                payload.put("parameters", parameters);
+                payload.put("goal", goalPrompt);
 
                 Request request = new Request.Builder()
                         .url(API_URL)
-                        .addHeader("Authorization", "Bearer " + API_TOKEN) // ✅ Important: Must start with "Bearer "
                         .post(RequestBody.create(
                                 payload.toString(),
-                                MediaType.get("application/json")))
+                                MediaType.get("application/json")
+                        ))
                         .build();
 
                 Response response = client.newCall(request).execute();
 
-                String body = response.body() != null ? response.body().string() : "null";
                 if (response.isSuccessful()) {
-                    Log.d("DeepSeekSuccess", body);
-                    String result = parseGeneratedText(body);
-                    postSuccess(callback, result);
+                    String body = response.body().string();
+                    JSONObject json = new JSONObject(body);
+                    String steps = json.getString("steps");
+                    postSuccess(callback, steps);
                 } else {
-                    Log.e("DeepSeekError", "HTTP " + response.code() + ": " + body);
-                    postError(callback, "HTTP " + response.code() + ": " + body);
+                    String errorBody = response.body() != null ? response.body().string() : "No response";
+                    postError(callback, "HTTP " + response.code() + ": " + errorBody);
                 }
             } catch (IOException | JSONException e) {
-                Log.e("DeepSeekError", "Exception: " + e.getMessage(), e);
-                postError(callback, "Exception: " + e.getMessage());
+                Log.e("GeminiError", "Exception: " + e.getMessage(), e);
+                postError(callback, e.getMessage());
             }
         }).start();
     }
-
 
     private void postSuccess(GoalCallback callback, String result) {
         new Handler(Looper.getMainLooper()).post(() -> callback.onSuccess(result));
@@ -80,11 +71,5 @@ public class AIService {
 
     private void postError(GoalCallback callback, String error) {
         new Handler(Looper.getMainLooper()).post(() -> callback.onError(error));
-    }
-
-    private String parseGeneratedText(String json) throws JSONException {
-        JSONArray arr = new JSONArray(json);
-        JSONObject obj = arr.getJSONObject(0);
-        return obj.getString("generated_text");
     }
 }
