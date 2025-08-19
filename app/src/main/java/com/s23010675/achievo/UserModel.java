@@ -4,7 +4,6 @@ public class UserModel {
     private String username;
     private String email;
 
-    // Firestore needs a public no-argument constructor
     public UserModel() {}
 
     public UserModel(String username, String email) {
@@ -12,7 +11,6 @@ public class UserModel {
         this.email = email;
     }
 
-    // Getters & Setters (required by Firestore to deserialize)
     public String getUsername() {
         return username;
     }

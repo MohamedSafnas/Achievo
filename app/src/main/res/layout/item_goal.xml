@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/rounded_button">
+
+        <!-- Goal Name -->
+        <TextView
+            android:id="@+id/goalNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goal Name"
+            style="@style/smallBold" />
+
+        <!-- Goal Date -->
+        <TextView
+            android:id="@+id/goalDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/goalNameText"
+            android:text="2025-08-18"
+            android:textSize="14sp"
+            android:textColor="#888888"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/goalProgressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/goalDateText"
+            android:layout_marginTop="8dp"
+            android:progress="50"
+            android:max="100"
+            android:progressTint="@color/lightGreen"/>
+
+        <!-- Delete Icon -->
+        <ImageView
+            android:id="@+id/deleteGoalIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/delete"
+            android:contentDescription="Delete Goal"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

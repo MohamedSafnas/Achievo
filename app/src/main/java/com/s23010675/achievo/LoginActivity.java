@@ -65,8 +65,27 @@ public class LoginActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                                 finish();
                                             } else {
-                                                Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show();
+                                                // Create Firestore document for old users
+                                                UserModel userModel = new UserModel(
+                                                        firebaseUser.getDisplayName() != null ? firebaseUser.getDisplayName() : "",
+                                                        firebaseUser.getEmail()
+                                                );
+
+                                                db.collection("users").document(uid)
+                                                        .set(userModel)
+                                                        .addOnSuccessListener(unused -> {
+                                                            Toast.makeText(this, "User data created. Login successful!", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(this, "Failed to create user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        });
                                             }
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                         });
 
                             } else {

@@ -15,8 +15,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class DashboardActivity extends AppCompatActivity {
@@ -28,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseFirestore firestore;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,7 @@ public class DashboardActivity extends AppCompatActivity {
         goalInput = findViewById(R.id.goalInput);
 
         // Fetch and display username
-        FirebaseUser currentUser = auth.getCurrentUser();
+        currentUser = auth.getCurrentUser();
         if (currentUser != null) {
             String uid = currentUser.getUid();
             firestore.collection("users").document(uid).get()
@@ -74,13 +80,48 @@ public class DashboardActivity extends AppCompatActivity {
         submitGoalBtn.setOnClickListener(v -> {
             String goal = goalInput.getText().toString().trim();
             if (!goal.isEmpty()) {
-                Intent intent = new Intent(DashboardActivity.this, GenerateStepActivity.class);
-                intent.putExtra("user_goal", goal);
-                startActivity(intent);
+                currentUser = auth.getCurrentUser();
+                if (currentUser != null) {
+                    String uid = currentUser.getUid();
+
+                    // Create goal data
+                    Map<String, Object> goalData = new HashMap<>();
+                    goalData.put("name", goal);
+                    goalData.put("date", FieldValue.serverTimestamp());
+                    goalData.put("steps", new ArrayList<>());  // <-- add this line
+
+                    // Save to Firestore
+                    firestore.collection("users")
+                            .document(uid)
+                            .collection("goals")
+                            .add(goalData)
+                            .addOnSuccessListener(documentReference -> {
+                                Toast.makeText(DashboardActivity.this, "Goal saved!", Toast.LENGTH_SHORT).show();
+
+                                // <<< THIS IS THE IMPORTANT PART >>>
+                                // Pass the Firestore-generated goal ID to the next activity
+                                String goalId = documentReference.getId();
+
+                                // Navigate to GenerateStepActivity
+                                Intent intent = new Intent(DashboardActivity.this, GenerateStepActivity.class);
+                                intent.putExtra("user_goal", goal);
+                                intent.putExtra("goal_id", goalId);  // <-- add this line
+                                startActivity(intent);
+
+                                // Optionally clear input
+                                goalInput.setText("");
+                                setGoalForm.setVisibility(View.GONE);
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(DashboardActivity.this, "Failed to save goal.", Toast.LENGTH_SHORT).show();
+                            });
+                }
             } else {
                 Toast.makeText(this, "Please enter a goal", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
         TextView mygoals = findViewById(R.id.myGoals);
         LinearLayout predictNew = findViewById(R.id.predictNew);

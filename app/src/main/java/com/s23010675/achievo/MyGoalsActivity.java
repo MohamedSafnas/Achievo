@@ -1,39 +1,74 @@
 package com.s23010675.achievo;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import android.os.Bundle;
-
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.s23010675.achievo.GoalAdapter;
+import com.s23010675.achievo.GoalModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MyGoalsActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private GoalAdapter adapter;
+    private List<GoalModel> goalList;
+    private FirebaseFirestore db;
+    private FirebaseAuth auth;
+    private TextView addGoalBtn;
     LinearLayout setGoalForm;
-    TextView setNewGoalBox;
+    TextView setNewGoalBox,userName;
     Button submitGoalBtn;
     EditText goalInput;
-
+    FirebaseUser currentUser;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_goals);
 
+        recyclerView = findViewById(R.id.recyclerGoals);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        goalList = new ArrayList<>();
+        adapter = new GoalAdapter(this, goalList);
+        recyclerView.setAdapter(adapter);
+
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         setNewGoalBox = findViewById(R.id.setNewGoalBox);
         setGoalForm = findViewById(R.id.setGoalForm);
         submitGoalBtn = findViewById(R.id.submitGoalBtn);
         goalInput = findViewById(R.id.goalInput);
 
-        //trigger when click the set new goal
+        loadGoals();
+
+
+        // Toggle goal form
         setNewGoalBox.setOnClickListener(v -> {
             if (setGoalForm.getVisibility() == View.GONE) {
                 setGoalForm.setVisibility(View.VISIBLE);
@@ -42,32 +77,71 @@ public class MyGoalsActivity extends AppCompatActivity {
             }
         });
 
-        //trigger when the generate steps button clicks
+        // Submit goal
         submitGoalBtn.setOnClickListener(v -> {
             String goal = goalInput.getText().toString().trim();
             if (!goal.isEmpty()) {
-                Intent intent = new Intent(MyGoalsActivity.this, GenerateStepActivity.class);
-                intent.putExtra("user_goal", goal);
-                startActivity(intent);
+                currentUser = auth.getCurrentUser();
+                if (currentUser != null) {
+                    String uid = currentUser.getUid();
+
+                    // Create goal data
+                    Map<String, Object> goalData = new HashMap<>();
+                    goalData.put("name", goal);
+                    goalData.put("date", FieldValue.serverTimestamp());
+
+                    // Save to Firestore
+                    db.collection("users")  // <-- use db, not firestore (since you already init db = FirebaseFirestore.getInstance())
+                            .document(uid)
+                            .collection("goals")
+                            .add(goalData)
+                            .addOnSuccessListener(documentReference -> {
+                                Toast.makeText(MyGoalsActivity.this, "Goal saved!", Toast.LENGTH_SHORT).show();
+
+                                // ✅ Firestore generated ID
+                                String goalId = documentReference.getId();
+
+                                // Navigate to GenerateStepActivity
+                                Intent intent = new Intent(MyGoalsActivity.this, GenerateStepActivity.class);
+                                intent.putExtra("user_goal", goal);
+                                intent.putExtra("goal_id", goalId); // <-- pass ID here too
+                                startActivity(intent);
+
+                                goalInput.setText("");
+                                setGoalForm.setVisibility(View.GONE);
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(MyGoalsActivity.this, "Failed to save goal.", Toast.LENGTH_SHORT).show();
+                            });
+                }
             } else {
                 Toast.makeText(this, "Please enter a goal", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        ImageView home = findViewById(R.id.homeI);
-        ImageView profile = findViewById(R.id.profileI);
-
-        //navigate to Profile page
-        profile.setOnClickListener(v -> {
-            Intent intent = new Intent(MyGoalsActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        });
-
-        //navigate to Dashboard page
-        home.setOnClickListener(v -> {
-            Intent intent = new Intent(MyGoalsActivity.this, DashboardActivity.class);
-            startActivity(intent);
-        });
     }
+
+    private void loadGoals() {
+        String userId = auth.getCurrentUser().getUid();
+        db.collection("users")
+                .document(userId)
+                .collection("goals")
+                .orderBy("date", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                .addSnapshotListener((value, error) -> {
+                    if(error != null){
+                        Toast.makeText(MyGoalsActivity.this, "Error loading goals", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    List<GoalModel> newGoals = new ArrayList<>();
+                    for(DocumentSnapshot doc : value.getDocuments()){
+                        GoalModel goal = doc.toObject(GoalModel.class);
+                        if(goal != null) {
+                            goal.setId(doc.getId());
+                            newGoals.add(goal);
+                        }
+                    }
+                    adapter.setGoals(newGoals);  // use the fixed setGoals
+                });
+    }
+
 }

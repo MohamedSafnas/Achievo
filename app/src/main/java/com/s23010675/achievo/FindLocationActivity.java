@@ -20,8 +20,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public class FindLocationActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -68,11 +72,25 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
             if (selectedLatLng != null) {
                 Toast.makeText(this, "Location added: " + locationName, Toast.LENGTH_SHORT).show();
 
-                //code for save to database
+                LocationModel location = new LocationModel(locationName, selectedLatLng.latitude, selectedLatLng.longitude);
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                addButton.setVisibility(View.GONE);
+                db.collection("users")
+                        .document(uid)
+                        .collection("locations")
+                        .add(location)
+                        .addOnSuccessListener(documentReference -> {
+                            Toast.makeText(this, "Location saved successfully!", Toast.LENGTH_SHORT).show();
+                            addButton.setVisibility(View.GONE);
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(this, "Failed to save location: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+
             }
         });
+
 
 
 

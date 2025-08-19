@@ -2,16 +2,60 @@ package com.s23010675.achievo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class SavedLocationsActivity extends AppCompatActivity {
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); // <-- must be first
+        setContentView(R.layout.activity_saved_locations); // <-- before findViewById
+
+        LinearLayout locationListContainer = findViewById(R.id.LocationListContainer);
+        LinearLayout noLocationContainer = findViewById(R.id.noLocationContainer);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("users")
+                .document(uid)
+                .collection("locations")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        noLocationContainer.setVisibility(View.GONE);
+                        locationListContainer.setVisibility(View.VISIBLE);
+
+                        for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                            String name = doc.getString("name");
+                            double lat = doc.getDouble("latitude");
+                            double lng = doc.getDouble("longitude");
+
+                            TextView tv = new TextView(this);
+                            tv.setText(name + " (" + lat + ", " + lng + ")");
+                            tv.setPadding(10, 10, 10, 10);
+                            tv.setTextSize(16);
+                            locationListContainer.addView(tv);
+                        }
+                    } else {
+                        noLocationContainer.setVisibility(View.VISIBLE);
+                        locationListContainer.setVisibility(View.GONE);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to load locations: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+
         setContentView(R.layout.activity_saved_locations);
 
         TextView addLocation = findViewById(R.id.addNewLocation);
