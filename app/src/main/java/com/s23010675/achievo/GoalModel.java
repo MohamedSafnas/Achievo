@@ -31,9 +31,6 @@ public class GoalModel {
     public Timestamp getDate() { return date; }
     public void setDate(Timestamp date) { this.date = date; }
 
-    public List<Map<String, Object>> getSteps() { return steps; }
-    public void setSteps(List<Map<String, Object>> steps) { this.steps = steps; }
-
     public int getCompletedPercent() { return completedPercent; }
     public void setCompletedPercent(int completedPercent) { this.completedPercent = completedPercent; }
 }

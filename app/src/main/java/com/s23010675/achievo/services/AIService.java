@@ -26,7 +26,7 @@ public class AIService {
     }
 
     private final OkHttpClient client = new OkHttpClient();
-    private final String API_URL = "https://gemini-api-t0jr.onrender.com/generate"; // ✅ Your live endpoint
+    private final String API_URL = "https://gemini-api-t0jr.onrender.com/generate";
     private final Context context;
 
     public AIService(Context context) {

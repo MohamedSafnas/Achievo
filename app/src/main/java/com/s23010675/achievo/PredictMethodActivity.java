@@ -30,11 +30,8 @@ public class PredictMethodActivity extends AppCompatActivity {
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
 
-        //navigate to Dashboard page
-        backI.setOnClickListener(v -> {
-            Intent intent = new Intent(PredictMethodActivity.this, DashboardActivity.class);
-            startActivity(intent);
-        });
+        //navigate back
+        backI.setOnClickListener(v -> finish());
 
         //navigate to Profile page
         profile.setOnClickListener(v -> {

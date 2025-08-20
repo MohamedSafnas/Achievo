@@ -19,16 +19,6 @@ public class UsersDbHelper extends SQLiteOpenHelper {
     private static final String PASSWORD = "password";
     private static final String PROFILE_PIC = "profile_pic";
 
-    /*
-    //location table
-    private static final String TABLE_LOCATIONS = "locations";
-    private static final String LOC_ID = "id";
-    private static final String ADDRESS = "address";
-    private static final String LATITUDE = "latitude";
-    private static final String LONGITUDE = "longitude";
-    private static final String LOC_USER_ID = "user_id";
-    */
-
 
     public UsersDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,13 +29,6 @@ public class UsersDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //user database
         String createTable = "CREATE TABLE " + TABLE_USERS + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + USERNAME + " TEXT," + EMAIL + " TEXT UNIQUE," + PASSWORD + " TEXT," + PROFILE_PIC + " TEXT" + ")";
-
-        /*
-        //location database
-        String createLocationTable = "CREATE TABLE " + TABLE_LOCATIONS + " (" + LOC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ADDRESS + " TEXT, " + LATITUDE + " REAL, " + LONGITUDE + " REAL, " + LOC_USER_ID + " INTEGER, " +
-                "FOREIGN KEY(" + LOC_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + ID + "))";
-        db.execSQL(createLocationTable);
-        */
 
         db.execSQL(createTable);
     }

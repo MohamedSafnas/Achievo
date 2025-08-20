@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class ViewStepsActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView progressText;
     Button btnRestart, btnComplete;
-
+    ImageView back;
     List<StepModel> stepList = new ArrayList<>();
     StepsAdapter adapter;
     private String goalId;
@@ -35,21 +36,22 @@ public class ViewStepsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_steps);
 
-        // 1️⃣ Get goalId from intent
-        goalId = getIntent().getStringExtra("goalId");
+        // Get goalId from intent
+        goalId = getIntent().getStringExtra("goal_id");
+        String goalName = getIntent().getStringExtra("goal_name");
         if (goalId == null) {
             Toast.makeText(this, "Goal not found!", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        // 2️⃣ Firestore + user
+        // Firestore + user
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // 3️⃣ Goal title
+        // Goal title
         TextView goalTitle = findViewById(R.id.goalTitle);
-        String goalName = getIntent().getStringExtra("user_goal");
+        //String goalName = getIntent().getStringExtra("user_goal");
         if (goalName != null && !goalName.isEmpty()) {
             goalTitle.setText(goalName);
         }
@@ -59,6 +61,7 @@ public class ViewStepsActivity extends AppCompatActivity {
         progressText = findViewById(R.id.progressText);
         btnRestart = findViewById(R.id.btnRestart);
         btnComplete = findViewById(R.id.btnComplete);
+        back = findViewById(R.id.back);
 
         adapter = new StepsAdapter(stepList, this::updateProgress);
         stepsRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -70,14 +73,21 @@ public class ViewStepsActivity extends AppCompatActivity {
                 .collection("goals")
                 .document(goalId)
                 .collection("steps")
+                .orderBy("stepNumber", Query.Direction.ASCENDING)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {
                     stepList.clear();
+
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String stepText = doc.getString("stepText");
                         boolean completed = doc.getBoolean("completed") != null && doc.getBoolean("completed");
+                        Long sn = doc.getLong("stepNumber");
+                        int stepNumber = sn != null ? sn.intValue() : 0;
                         StepModel step = new StepModel(stepText, completed, doc.getId());
+
+                        step.setStepNumber(stepNumber);
                         stepList.add(step);
+
                     }
                     adapter.notifyDataSetChanged();
                     updateProgress();
@@ -86,25 +96,26 @@ public class ViewStepsActivity extends AppCompatActivity {
                         Toast.makeText(this, "Failed to load steps: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                 );
 
-        // 🔄 Restart Goal (untick all)
+        // Restart Goal (untick all)
         btnRestart.setOnClickListener(v -> {
             for (StepModel step : stepList) {
-                step.setCompleted(false);  // ✅ fixed
+                step.setCompleted(false);
             }
             adapter.notifyDataSetChanged();
             updateProgress();
         });
 
-        // ✅ Complete Goal (tick all)
+        // Complete Goal (tick all)
         btnComplete.setOnClickListener(v -> {
             for (StepModel step : stepList) {
-                step.setCompleted(true);  // ✅ fixed
+                step.setCompleted(true);  //
             }
             adapter.notifyDataSetChanged();
             updateProgress();
         });
 
         updateProgress();
+        back.setOnClickListener(v -> finish());
     }
 
     // Progress update method
@@ -126,21 +137,21 @@ public class ViewStepsActivity extends AppCompatActivity {
                     .document(goalId)
                     .collection("steps")
                     .document(step.getId())
-                    .update("completed", step.isCompleted());  // ✅ fixed
+                    .update("completed", step.isCompleted());
         }
 
-        // Optional: update goal's overall percent
+        // update goal's overall percent
         db.collection("users")
                 .document(uid)
                 .collection("goals")
                 .document(goalId)
                 .update("completedPercent", percent);
 
-        // ✅ Save locally
+        // Save locally
         if (goalId != null) {
             List<String> stepsWithChecks = new ArrayList<>();
             for (StepModel step : stepList) {
-                stepsWithChecks.add((step.isCompleted() ? "[x] " : "[ ] ") + step.getStepText());  // ✅ fixed
+                stepsWithChecks.add((step.isCompleted() ? "[x] " : "[ ] ") + step.getStepText());
             }
             getSharedPreferences("GoalSteps", MODE_PRIVATE)
                     .edit()

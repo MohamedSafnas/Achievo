@@ -38,7 +38,7 @@ public class LocationListActivity extends AppCompatActivity {
         findViewById(R.id.addNewLocation).setOnClickListener(v -> {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             LocationModel newLocation = new LocationModel();
-            newLocation.setName("New Place"); // Or get from user input
+            newLocation.setName("New Place");
 
             db.collection("locations")
                     .add(newLocation)
@@ -52,7 +52,6 @@ public class LocationListActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     private void loadLocationsFromFirestore() {
@@ -77,7 +76,7 @@ public class LocationListActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataSetChanged();
 
-                    // ✅ Show/hide "No Locations" view
+                    // Show/hide "No Locations" view
                     findViewById(R.id.noLocationContainer)
                             .setVisibility(locationList.isEmpty() ? View.VISIBLE : View.GONE);
                 });

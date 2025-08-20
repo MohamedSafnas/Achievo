@@ -159,7 +159,6 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
                 Address address = addresses.get(0);
                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-                // ✅ Set location name correctly
                 locationName = address.getAddressLine(0);
 
                 Map.clear();

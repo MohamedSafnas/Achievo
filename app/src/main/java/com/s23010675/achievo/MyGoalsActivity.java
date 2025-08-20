@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,20 +92,20 @@ public class MyGoalsActivity extends AppCompatActivity {
                     goalData.put("date", FieldValue.serverTimestamp());
 
                     // Save to Firestore
-                    db.collection("users")  // <-- use db, not firestore (since you already init db = FirebaseFirestore.getInstance())
+                    db.collection("users")
                             .document(uid)
                             .collection("goals")
                             .add(goalData)
                             .addOnSuccessListener(documentReference -> {
                                 Toast.makeText(MyGoalsActivity.this, "Goal saved!", Toast.LENGTH_SHORT).show();
 
-                                // ✅ Firestore generated ID
+                                // Firestore generated ID
                                 String goalId = documentReference.getId();
 
                                 // Navigate to GenerateStepActivity
                                 Intent intent = new Intent(MyGoalsActivity.this, GenerateStepActivity.class);
                                 intent.putExtra("user_goal", goal);
-                                intent.putExtra("goal_id", goalId); // <-- pass ID here too
+                                intent.putExtra("goal_id", goalId);
                                 startActivity(intent);
 
                                 goalInput.setText("");
@@ -118,6 +119,13 @@ public class MyGoalsActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please enter a goal", Toast.LENGTH_SHORT).show();
             }
         });
+
+        ImageView home = findViewById(R.id.homeI);
+        ImageView profile = findViewById(R.id.profileI);
+
+        profile.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
+        home.setOnClickListener(v -> startActivity(new Intent(this, DashboardActivity.class)));
+
 
     }
 
@@ -140,7 +148,7 @@ public class MyGoalsActivity extends AppCompatActivity {
                             newGoals.add(goal);
                         }
                     }
-                    adapter.setGoals(newGoals);  // use the fixed setGoals
+                    adapter.setGoals(newGoals);
                 });
     }
 

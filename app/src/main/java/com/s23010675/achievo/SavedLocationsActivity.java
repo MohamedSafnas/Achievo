@@ -17,8 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SavedLocationsActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); // <-- must be first
-        setContentView(R.layout.activity_saved_locations); // <-- before findViewById
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_saved_locations);
 
         LinearLayout locationListContainer = findViewById(R.id.LocationListContainer);
         LinearLayout noLocationContainer = findViewById(R.id.noLocationContainer);

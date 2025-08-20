@@ -5,7 +5,6 @@ public class LocationModel {
     private String name; // Location name
 
     public LocationModel() {
-        // Required empty constructor
     }
 
     public LocationModel(String id, String name) {

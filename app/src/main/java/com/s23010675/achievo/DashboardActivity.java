@@ -30,7 +30,6 @@ public class DashboardActivity extends AppCompatActivity {
     TextView setNewGoalBox,userName;
     Button submitGoalBtn;
     EditText goalInput;
-
     FirebaseAuth auth;
     FirebaseFirestore firestore;
     FirebaseUser currentUser;
@@ -88,7 +87,7 @@ public class DashboardActivity extends AppCompatActivity {
                     Map<String, Object> goalData = new HashMap<>();
                     goalData.put("name", goal);
                     goalData.put("date", FieldValue.serverTimestamp());
-                    goalData.put("steps", new ArrayList<>());  // <-- add this line
+                    goalData.put("steps", new ArrayList<>());
 
                     // Save to Firestore
                     firestore.collection("users")
@@ -98,17 +97,16 @@ public class DashboardActivity extends AppCompatActivity {
                             .addOnSuccessListener(documentReference -> {
                                 Toast.makeText(DashboardActivity.this, "Goal saved!", Toast.LENGTH_SHORT).show();
 
-                                // <<< THIS IS THE IMPORTANT PART >>>
-                                // Pass the Firestore-generated goal ID to the next activity
+                                // Pass firedtore goal id to the next activity
                                 String goalId = documentReference.getId();
 
                                 // Navigate to GenerateStepActivity
                                 Intent intent = new Intent(DashboardActivity.this, GenerateStepActivity.class);
                                 intent.putExtra("user_goal", goal);
-                                intent.putExtra("goal_id", goalId);  // <-- add this line
+                                intent.putExtra("goal_id", goalId);
                                 startActivity(intent);
 
-                                // Optionally clear input
+                                // clear input
                                 goalInput.setText("");
                                 setGoalForm.setVisibility(View.GONE);
                             })

@@ -48,10 +48,10 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
         holder.checkBox.setOnCheckedChangeListener(null);
 
         holder.checkBox.setText(step.getStepText());
-        holder.checkBox.setChecked(step.isCompleted());  // ✅ updated
+        holder.checkBox.setChecked(step.isCompleted());
 
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            step.setCompleted(isChecked);  // ✅ updated
+            step.setCompleted(isChecked);
             listener.onCheckedChanged();
         });
     }
@@ -62,7 +62,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
         return steps.size();
     }
 
-    // ✅ Use getters here too
+    // getters
     public int getCheckedCount() {
         int count = 0;
         for (StepModel step : steps) {

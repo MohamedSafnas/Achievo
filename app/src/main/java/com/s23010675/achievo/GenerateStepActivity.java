@@ -36,8 +36,8 @@ public class GenerateStepActivity extends AppCompatActivity {
     boolean undSuccess = true;
     boolean gSuccess = true;
     String goalId;
-    String goal; // to store the goal from intent
-    private String generatedStepsJson; // add at class level
+    String goal;
+    private String generatedStepsJson;
 
 
     @Override
@@ -85,27 +85,27 @@ public class GenerateStepActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "Goal processed successfully!", Toast.LENGTH_SHORT).show();
 
-                //CALL DEEPSEEK API to generate steps
+                //Call API to generate steps
                 AIService aiService = new AIService(this);
                 aiService.generateSteps(goal, new AIService.GoalCallback() {
 
                     @Override
                     public void onSuccess(String resultJson) {
-                        // 1️⃣ Store the AI output for later use
+                        // Store the AI output for later use
                         generatedStepsJson = resultJson;
 
-                        // 2️⃣ Initialize Firestore and get current user ID
+                        // Initialize Firestore and get current user ID
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                        // 3️⃣ Parse AI response into individual steps
+                        // Parse AI response into individual steps
                         String[] stepsArray = resultJson.split("\\n");  // split by new lines
                         List<String> stepTexts = new ArrayList<>();
                         List<Map<String, Object>> stepsForFirestore = new ArrayList<>();
 
                         for (String step : stepsArray) {
                             step = step.trim();
-                            if (step.isEmpty()) continue; // skip empty lines
+                            if (step.isEmpty()) continue;
 
                             stepTexts.add(step); // For storing in goal document array
 
@@ -116,19 +116,28 @@ public class GenerateStepActivity extends AppCompatActivity {
                             stepsForFirestore.add(stepData);
                         }
 
-                        // 4️⃣ Save each step into "steps" subcollection under the goal
-                        for (Map<String, Object> stepData : stepsForFirestore) {
+                        // Save each step into subcollection under the goal
+                        for (int i = 0; i < stepsForFirestore.size(); i++) {
+                            Map<String, Object> stepData = stepsForFirestore.get(i);
+
+                            // Add step number based on position
+                            stepData.put("stepNumber", i);
+                            final int finalI = i;
+
                             db.collection("users")
                                     .document(uid)
                                     .collection("goals")
                                     .document(goalId)
                                     .collection("steps")
                                     .add(stepData)
-                                    .addOnSuccessListener(docRef -> Log.d("Firestore", "Step saved: " + stepData.get("stepText")))
-                                    .addOnFailureListener(e -> Log.e("Firestore", "Failed to save step", e));
+                                    .addOnSuccessListener(docRef ->
+                                            Log.d("Firestore", "Step saved: " + stepData.get("stepText") + " | stepNumber: " + finalI))
+                                    .addOnFailureListener(e ->
+                                            Log.e("Firestore", "Failed to save step", e));
                         }
 
-                        // 5️⃣ Update the goal document with the steps array
+
+                        // Update the goal document with the steps array
                         Map<String, Object> goalUpdate = new HashMap<>();
                         goalUpdate.put("steps", stepTexts);
                         db.collection("users")
@@ -140,60 +149,6 @@ public class GenerateStepActivity extends AppCompatActivity {
                                 .addOnFailureListener(e -> Log.e("Firestore", "Failed to update goal steps array", e));
 
                         }
-
-
-
-
-                    /*@Override
-                    public void onSuccess(String resultJson) {
-                        generatedStepsJson = resultJson;
-
-                        saveGeneratedSteps(goalId, resultJson);
-
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                        try {
-                            List<String> generatedSteps = new ArrayList<>();
-
-                            JSONObject json = new JSONObject(resultJson);       // ✅ Convert string to JSONObject
-                            JSONArray stepsArray = json.getJSONArray("steps");  // ✅ Extract the "steps" array
-
-                            for (int i = 0; i < stepsArray.length(); i++) {
-                                String stepText = stepsArray.getString(i);
-                                generatedSteps.add(stepText);
-
-                                Map<String, Object> stepData = new HashMap<>();
-                                stepData.put("stepText", stepText);
-                                stepData.put("completed", false);
-
-                                db.collection("users")
-                                        .document(uid)
-                                        .collection("goals")
-                                        .document(goalId)
-                                        .collection("steps")
-                                        .add(stepData);
-                            }
-
-                            Map<String, Object> stepsUpdate = new HashMap<>();
-                            stepsUpdate.put("steps", generatedSteps);
-
-                            db.collection("users")
-                                    .document(uid)
-                                    .collection("goals")
-                                    .document(goalId)
-                                    .set(stepsUpdate, SetOptions.merge());
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        } catch (Exception e) {
-                            Log.e("ParseError", "Failed to parse steps JSON: " + e.getMessage());
-                        }
-
-                        Toast.makeText(GenerateStepActivity.this, "Steps generated! Click 'View Steps' to see them.", Toast.LENGTH_SHORT).show();
-                    }*/
 
                     @Override
                     public void onError(String error) {
@@ -222,7 +177,8 @@ public class GenerateStepActivity extends AppCompatActivity {
         ImageView profile = findViewById(R.id.profileI);
         TextView view_goal = findViewById(R.id.viewSteps);
 
-        des_back.setOnClickListener(v -> startActivity(new Intent(this, DashboardActivity.class)));
+
+        des_back.setOnClickListener(v -> finish());
         profile.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
         home.setOnClickListener(v -> startActivity(new Intent(this, DashboardActivity.class)));
 
