@@ -48,6 +48,9 @@
         <activity android:name=".FindLocationActivity"/>
         <activity android:name=".SavedLocationsActivity"/>
         <activity android:name=".ViewStepsActivity"/>
+        <activity android:name=".PredictSelectMethodActivity"/>
+        <activity android:name=".PredictOutcomeActivity"/>
+        <activity android:name=".PredictionsListActivity"/>
 
     </application>
 

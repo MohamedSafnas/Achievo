@@ -35,6 +35,9 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
     private Button addButton;
     private LatLng selectedLatLng;
     String locationName;
+    private double passedLatitude = Double.NaN;
+    private double passedLongitude = Double.NaN;
+    private String passedLocationName;
 
 
     @Override
@@ -45,6 +48,9 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
         searchLocation = findViewById(R.id.search_location);
         addButton = findViewById(R.id.addLocation);
 
+        passedLatitude = getIntent().getDoubleExtra("latitude", Double.NaN);
+        passedLongitude = getIntent().getDoubleExtra("longitude", Double.NaN);
+        passedLocationName = getIntent().getStringExtra("locationName");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -91,9 +97,6 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
             }
         });
 
-
-
-
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
 
@@ -120,6 +123,23 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
         Map.getUiSettings().setRotateGesturesEnabled(true);       // rotation
         Map.getUiSettings().setTiltGesturesEnabled(true);         // tilt
 
+        LatLng initialLatLng;
+
+        if (!Double.isNaN(passedLatitude) && !Double.isNaN(passedLongitude)) {
+            // Use saved location
+            initialLatLng = new LatLng(passedLatitude, passedLongitude);
+            locationName = passedLocationName;
+            addButton.setVisibility(View.VISIBLE);
+        } else {
+            // Default location
+            initialLatLng = new LatLng(8.3114, 80.4037);
+            locationName = "Default";
+            addButton.setVisibility(View.GONE);
+        }
+
+        selectedLatLng = initialLatLng;
+        Map.addMarker(new MarkerOptions().position(initialLatLng).title(locationName));
+        Map.moveCamera(CameraUpdateFactory.newLatLngZoom(initialLatLng, 15f));
 
         //allow to mark the location by tap on map
         Map.setOnMapClickListener(latLng -> {
@@ -143,12 +163,6 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
             selectedLatLng = latLng;
             addButton.setVisibility(View.VISIBLE);
         });
-
-
-
-        LatLng Location = new LatLng(8.3114, 80.4037);
-        Map.addMarker(new MarkerOptions().position(Location));
-        Map.moveCamera(CameraUpdateFactory.newLatLngZoom(Location, 15));
     }
 
     private void searchAndZoom(String locationNameInput) {

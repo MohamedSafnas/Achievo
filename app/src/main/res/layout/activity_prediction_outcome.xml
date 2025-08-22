@@ -76,7 +76,6 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -91,97 +90,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/predM"
-            android:textColor="#FFD700"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.071" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.397">
-
-            <TextView
-                android:id="@+id/goalText"
-                style="@style/smallBold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/predMc"
-                android:textColor="@color/yellow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.231" />
-
-            <RadioGroup
-                android:id="@+id/predictionRadioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5">
-
-                <RadioButton
-                    android:id="@+id/bogBtn"
-                    android:layout_width="285dp"
-                    android:layout_height="52dp"
-                    android:background="@drawable/slightly_rounded"
-                    android:text="@string/bog"
-                    style="@style/blackBold"/>
-
-                <RadioButton
-                    android:id="@+id/bocBtn"
-                    android:layout_width="285dp"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/slightly_rounded"
-                    android:text="@string/boc"
-                    style="@style/blackBold"/>
-            </RadioGroup>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/conbtn"
-            style="@style/smallBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="13dp"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp"
-            android:background="@drawable/purple_button"
-            android:text="@string/cont"
-            android:layout_marginTop="30dp"
-            android:textStyle="bold"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.915" />
 
         <ImageView
             android:id="@+id/backI"
@@ -195,8 +103,63 @@
             app:layout_constraintVertical_bias="0.046"
             app:srcCompat="@drawable/back3" />
 
+        <TextView
+            android:id="@+id/Prediction"
+            style="@style/yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prediction"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.316"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.063" />
+
+
+        <TextView
+            android:id="@+id/tvPredictionTitle"
+            style="@style/bodytext1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prediction"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.445"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.145" />
+
+        <TextView
+            android:id="@+id/tvPredictionOutcome"
+            style="@style/small1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="8dp"
+            android:text="@string/appear_here"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.244" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnPredictions"
+        style="@style/blackBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light_blue_round"
+        android:padding="10dp"
+        android:text="@string/my_predictions"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.863" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

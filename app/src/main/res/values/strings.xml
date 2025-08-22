@@ -61,8 +61,8 @@
     <string name="goalStpsNo">07</string>
     <string name="predMc">Choose how you want to get your prediction:</string>
     <string name="cont">Continue</string>
-    <string name="bog">Based On Your Goals</string>
-    <string name="boc">Custom Activity</string>
+    <string name="bog">Based On Goals</string>
+    <string name="boc">Custom </string>
     <string name="achieved">Achieved</string>
     <string name="darkmode">Dark Mode</string>
     <string name="logout">Log Out</string>
@@ -74,7 +74,18 @@
     <string name="findLoc">Search location</string>
     <string name="plus_add">\u2795 Add New Location</string>
     <string name="deepseek_api_key">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</string>
-
+    <string name="selectGoal">Select a Goal</string>
+    <string name="progres">Progress: 0%</string>
+    <string name="predicto">Predict Outcome</string>
+    <string name="EnterTitle">Title</string>
+    <string name="selectFrequency">Select Frequency</string>
+    <string name="duration">Preferred Duration (hours)</string>
+    <string name="eg">e.g., 3</string>
+    <string name="gtitle">Goal Title</string>
+    <string name="prediction">Prediction: </string>
+    <string name="appear_here">Your prediction will appear here...</string>
+    <string name="my_predictions">My Predictions</string>
+    <string name="predictions">Predictions</string>
 
 
 </resources>

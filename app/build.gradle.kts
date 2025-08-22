@@ -57,6 +57,10 @@ dependencies {
     implementation (libs.volley)
     implementation (libs.okhttp)
 
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
+
 
 
 }

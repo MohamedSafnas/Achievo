@@ -26,7 +26,7 @@ public class AIService {
     }
 
     private final OkHttpClient client = new OkHttpClient();
-    private final String API_URL = "https://gemini-api-t0jr.onrender.com/generate";
+    private final String API = "https://gemini-api-t0jr.onrender.com";
     private final Context context;
 
     public AIService(Context context) {
@@ -34,6 +34,7 @@ public class AIService {
     }
 
     public void generateSteps(String goalPrompt, @NonNull GoalCallback callback) {
+        final String API_URL = API + "/generate";
         new Thread(() -> {
             try {
                 JSONObject payload = new JSONObject();
@@ -65,6 +66,38 @@ public class AIService {
         }).start();
     }
 
+
+    public void getPrediction(JSONObject predictionPayload, @NonNull GoalCallback callback) {
+        final String API_PREDICT = API+ "/predict";
+        new Thread(() -> {
+            try {
+                Request request = new Request.Builder()
+                        .url(API_PREDICT)
+                        .post(RequestBody.create(
+                                predictionPayload.toString(),
+                                MediaType.get("application/json")
+                        ))
+                        .build();
+
+                Response response = client.newCall(request).execute();
+
+                if (response.isSuccessful()) {
+                    String body = response.body().string();
+                    Log.d("PredictionResponse", "Raw response: " + body);
+                    JSONObject json = new JSONObject(body);
+                    String prediction = json.getString("prediction");
+                    postSuccess(callback, prediction);
+                } else {
+                    String errorBody = response.body() != null ? response.body().string() : "No response";
+                    postError(callback, "HTTP " + response.code() + ": " + errorBody);
+                }
+            } catch (IOException | JSONException e) {
+                Log.e("PredictionError", "Exception: " + e.getMessage(), e);
+                postError(callback, e.getMessage());
+            }
+        }).start();
+    }
+
     private void postSuccess(GoalCallback callback, String result) {
         new Handler(Looper.getMainLooper()).post(() -> callback.onSuccess(result));
     }
@@ -72,4 +105,5 @@ public class AIService {
     private void postError(GoalCallback callback, String error) {
         new Handler(Looper.getMainLooper()).post(() -> callback.onError(error));
     }
+
 }

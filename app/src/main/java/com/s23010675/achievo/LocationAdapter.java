@@ -1,6 +1,7 @@
 package com.s23010675.achievo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -36,6 +38,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         LocationModel location = locationList.get(position);
         holder.textViewName.setText(location.getName());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, FindLocationActivity.class);
+            intent.putExtra("latitude", location.getLatitude());
+            intent.putExtra("longitude", location.getLongitude());
+            intent.putExtra("locationName", location.getName());
+            context.startActivity(intent);
+        });
 
         holder.deleteIcon.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
@@ -63,7 +73,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
 
     private void deleteLocation(String docId, int position) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("locations").document(docId)
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String userId = auth.getCurrentUser().getUid();
+
+        db.collection("users")
+                .document(userId)
+                .collection("locations")
+                .document(docId)
                 .delete()
                 .addOnSuccessListener(aVoid -> {
                     locationList.remove(position);
@@ -73,7 +89,5 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
                 .addOnFailureListener(e ->
                         Toast.makeText(context, "Delete failed", Toast.LENGTH_SHORT).show());
     }
-
-
 
 }
