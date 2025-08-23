@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.597">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
 
             android:id="@+id/rootLayout"
             android:layout_width="match_parent"
@@ -112,24 +112,29 @@
                 android:gravity="center"
                 android:layout_marginTop="16dp">
 
-                <Button
+                <ImageView
                     android:id="@+id/btnRestart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Restart Goal"
-                    android:background="@drawable/light_blue_round"
-                    style="@style/blackBold"
-                    android:padding="10dp"
-                    android:layout_marginEnd="16dp"/>
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/refresh_16019977" />
+
+                <ImageView
+                    android:id="@+id/btnComplete"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/check_18603090" />
 
                 <Button
-                    android:id="@+id/btnComplete"
+                    android:id="@+id/btnMyGoals"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Complete Goal"
+                    android:text="@string/mygoals"
                     android:background="@drawable/light_blue_round"
                     style="@style/blackBold"
-                    android:padding="10dp"/>
+                    android:padding="12dp"/>
+
             </LinearLayout>
 
 

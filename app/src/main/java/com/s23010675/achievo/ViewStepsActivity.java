@@ -25,8 +25,8 @@ public class ViewStepsActivity extends AppCompatActivity {
     RecyclerView stepsRecycler;
     ProgressBar progressBar;
     TextView progressText;
-    Button btnRestart, btnComplete;
-    ImageView back;
+    ImageView back,btnRestart, btnComplete;
+    Button MyGoals;
     List<StepModel> stepList = new ArrayList<>();
     StepsAdapter adapter;
     private String goalId;
@@ -62,6 +62,9 @@ public class ViewStepsActivity extends AppCompatActivity {
         btnRestart = findViewById(R.id.btnRestart);
         btnComplete = findViewById(R.id.btnComplete);
         back = findViewById(R.id.back);
+        ImageView home = findViewById(R.id.homeI);
+        ImageView profile = findViewById(R.id.profileI);
+        MyGoals = findViewById(R.id.btnMyGoals);
 
         adapter = new StepsAdapter(stepList, this::updateProgress);
         stepsRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -115,7 +118,26 @@ public class ViewStepsActivity extends AppCompatActivity {
         });
 
         updateProgress();
+
         back.setOnClickListener(v -> finish());
+
+        //navigate to My Goals Page
+        MyGoals.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewStepsActivity.this, MyGoalsActivity.class);
+            startActivity(intent);
+        });
+
+        //navigate to Profile page
+        profile.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewStepsActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        //navigate to Profile page
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewStepsActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
     }
 
     // Progress update method

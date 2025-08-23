@@ -2,6 +2,7 @@ package com.s23010675.achievo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,9 @@ public class PredictionsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_predictions);
 
+        ImageView home = findViewById(R.id.homeI);
+        ImageView profile = findViewById(R.id.profileI);
+
         recyclerView = findViewById(R.id.recyclerPredictions);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -40,6 +44,18 @@ public class PredictionsListActivity extends AppCompatActivity {
 
         getNewPrediction.setOnClickListener(v -> {
             Intent intent = new Intent(PredictionsListActivity.this, PredictSelectMethodActivity.class);
+            startActivity(intent);
+        });
+
+        //navigate to Profile page
+        profile.setOnClickListener(v -> {
+            Intent intent = new Intent(PredictionsListActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        //navigate to Profile page
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(PredictionsListActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
     }

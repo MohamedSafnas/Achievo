@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -81,6 +82,9 @@ public class PredictSelectMethodActivity extends AppCompatActivity {
         btnPredictCustom = findViewById(R.id.btnPredictCustom);
         editCustomGoal = findViewById(R.id.editCustomGoal);
         editDuration = findViewById(R.id.editDuration);
+        ImageView back = findViewById(R.id.backI);
+        ImageView home = findViewById(R.id.homeI);
+        ImageView profile = findViewById(R.id.profileI);
 
         // RadioGroup listener
         radioGroupMethod.setOnCheckedChangeListener((group, checkedId) -> {
@@ -267,5 +271,19 @@ public class PredictSelectMethodActivity extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(v -> finish());
+
+        //navigate to Profile page
+        profile.setOnClickListener(v -> {
+            Intent intent = new Intent(PredictSelectMethodActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        //navigate to Profile page
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(PredictSelectMethodActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        });
     }
+
 }

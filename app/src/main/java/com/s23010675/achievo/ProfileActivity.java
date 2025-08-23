@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     CircleImageView profilePic;
     ImageView editIcon;
-    TextView userName;
+    TextView userName, goalCount, achievedCount;
 
     FirebaseAuth mAuth;
     FirebaseFirestore firestore;
@@ -42,6 +43,8 @@ public class ProfileActivity extends AppCompatActivity {
         profilePic = findViewById(R.id.profilepic);
         editIcon = findViewById(R.id.editProfile);
         userName = findViewById(R.id.username);
+        goalCount = findViewById(R.id.goalCount);
+        achievedCount = findViewById(R.id.achievedCount);
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -54,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         uid = user.getUid();
+        loadGoalCounts();
 
         // Load user profile from Firestore
         loadUserProfile();
@@ -144,5 +148,36 @@ public class ProfileActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+
+    }
+
+    private void loadGoalCounts() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) return;
+
+        String uid = user.getUid();
+
+        firestore.collection("users")
+                .document(uid)
+                .collection("goals")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    int totalGoals = querySnapshot.size();
+                    int achievedGoals = 0;
+
+                    for (DocumentSnapshot doc : querySnapshot) {
+                        Long completedPercent = doc.getLong("completedPercent");
+                        if (completedPercent != null && completedPercent == 100) {
+                            achievedGoals++;
+                        }
+                    }
+
+                    goalCount.setText(String.valueOf(totalGoals));
+                    achievedCount.setText(String.valueOf(achievedGoals));
+
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ProfileActivity.this, "Failed to load goals", Toast.LENGTH_SHORT).show();
+                });
     }
 }

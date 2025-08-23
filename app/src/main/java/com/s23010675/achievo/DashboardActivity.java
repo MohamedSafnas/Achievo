@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,8 +24,8 @@ import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    LinearLayout setGoalForm;
-    TextView setNewGoalBox,userName;
+    LinearLayout setGoalForm,setNewGoalBox;
+    TextView userName;
     Button submitGoalBtn;
     EditText goalInput;
     FirebaseAuth auth;
@@ -36,6 +37,8 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        loadGoalStats();
+        
         // Firebase
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -118,7 +121,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
 
-        TextView mygoals = findViewById(R.id.myGoals);
+        LinearLayout mygoals = findViewById(R.id.myGoals);
         LinearLayout predictNew = findViewById(R.id.predictNew);
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
@@ -163,4 +166,48 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
     }
+
+    private void loadGoalStats() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("users")
+                .document(userId)
+                .collection("goals")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    int totalGoals = 0;
+                    int pendingGoals = 0;
+                    int ongoingGoals = 0;
+                    int achievedGoals = 0;
+
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        if (!doc.contains("completedPercent")) continue; // ignore empty documents
+
+                        totalGoals++;
+                        Double completedPercent = doc.getDouble("completedPercent");
+                        if (completedPercent == null) completedPercent = 0.0;
+
+                        if (completedPercent == 0.0) pendingGoals++;
+                        else if (completedPercent > 0.0 && completedPercent < 100.0) ongoingGoals++;
+                        else if (completedPercent == 100.0) achievedGoals++;
+                    }
+
+                    // Update UI
+                    TextView Total = findViewById(R.id.totalGoals);
+                    TextView Pending = findViewById(R.id.pendingGoals);
+                    TextView Ongoing = findViewById(R.id.ongoingGoals);
+                    TextView Achieved = findViewById(R.id.achievedGoals);
+
+                    Total.setText(String.valueOf(totalGoals));
+                    Pending.setText(String.valueOf(pendingGoals));
+                    Ongoing.setText(String.valueOf(ongoingGoals));
+                    Achieved.setText(String.valueOf(achievedGoals));
+
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to load goals", Toast.LENGTH_SHORT).show();
+                });
+    }
+
 }

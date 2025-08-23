@@ -78,17 +78,20 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="379dp"
-        android:layout_height="626dp"
+        android:layout_width="match_parent"
+        android:layout_height="535dp"
+        android:layout_margin="15dp"
         android:background="@drawable/light_blue_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.556">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="419dp"
+            android:layout_height="331dp"
             android:background="@drawable/rounded_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +138,7 @@
                 app:layout_constraintVertical_bias="0.01" />
 
             <TextView
-                android:id="@+id/goalCount2"
+                android:id="@+id/achievedCount"
                 style="@style/smallBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -193,8 +196,8 @@
             android:layout_width="153dp"
             android:layout_height="154dp"
             android:src="@drawable/profile"
-            app:civ_border_width="2dp"
             app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -211,10 +214,10 @@
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.812"
+            app:layout_constraintHorizontal_bias="0.784"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.251"
+            app:layout_constraintVertical_bias="0.339"
             app:srcCompat="@drawable/edit" />
 
         <TextView
@@ -226,10 +229,9 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.285" />
+            app:layout_constraintVertical_bias="0.333" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
