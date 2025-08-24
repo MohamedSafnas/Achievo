@@ -279,9 +279,9 @@ public class PredictSelectMethodActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //navigate to Profile page
+        //navigate to home page
         home.setOnClickListener(v -> {
-            Intent intent = new Intent(PredictSelectMethodActivity.this, ProfileActivity.class);
+            Intent intent = new Intent(PredictSelectMethodActivity.this, DashboardActivity.class);
             startActivity(intent);
         });
     }

@@ -53,9 +53,9 @@ public class PredictionsListActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //navigate to Profile page
+        //navigate to home page
         home.setOnClickListener(v -> {
-            Intent intent = new Intent(PredictionsListActivity.this, ProfileActivity.class);
+            Intent intent = new Intent(PredictionsListActivity.this, DashboardActivity.class);
             startActivity(intent);
         });
     }

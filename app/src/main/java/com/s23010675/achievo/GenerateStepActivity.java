@@ -63,6 +63,7 @@ public class GenerateStepActivity extends AppCompatActivity {
         goal = getIntent().getStringExtra("user_goal");
         goalId = getIntent().getStringExtra("goal_id");
         goalName.setText(goal);
+        Log.d("GenerateStepActivity", "goal: " + goal + ", goalId: " + goalId);
 
 
         // Animation statuses
@@ -93,6 +94,9 @@ public class GenerateStepActivity extends AppCompatActivity {
                     public void onSuccess(String resultJson) {
                         // Store the AI output for later use
                         generatedStepsJson = resultJson;
+
+                        // Save locally for fallback
+                        saveGeneratedSteps(goalId, generatedStepsJson);
 
                         // Initialize Firestore and get current user ID
                         FirebaseFirestore db = FirebaseFirestore.getInstance();

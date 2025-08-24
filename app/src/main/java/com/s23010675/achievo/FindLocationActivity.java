@@ -32,7 +32,7 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
 
     private GoogleMap Map;
     private AutoCompleteTextView searchLocation;
-    private Button addButton;
+    private Button addButton,myLocations;
     private LatLng selectedLatLng;
     String locationName;
     private double passedLatitude = Double.NaN;
@@ -47,6 +47,7 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
 
         searchLocation = findViewById(R.id.search_location);
         addButton = findViewById(R.id.addLocation);
+        myLocations = findViewById(R.id.locations);
 
         passedLatitude = getIntent().getDoubleExtra("latitude", Double.NaN);
         passedLongitude = getIntent().getDoubleExtra("longitude", Double.NaN);
@@ -99,6 +100,12 @@ public class FindLocationActivity extends AppCompatActivity implements OnMapRead
 
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
+
+        //navigate to saved location page
+        myLocations.setOnClickListener(v -> {
+            Intent intent = new Intent(FindLocationActivity.this, SavedLocationsActivity.class);
+            startActivity(intent);
+        });
 
         //navigate to Profile page
         profile.setOnClickListener(v -> {

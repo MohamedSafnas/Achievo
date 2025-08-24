@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class ResetPasswordActivity extends AppCompatActivity {
@@ -49,27 +51,27 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 }
 
                 // Check if the email is registered in Firebase Auth
-                mAuth.fetchSignInMethodsForEmail(email)
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                db.collection("users")
+                        .whereEqualTo("email", email)
+                        .get()
                         .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                SignInMethodQueryResult result = task.getResult();
-                                if (result != null) {
-                                    List<String> methods = result.getSignInMethods();
-                                    if (methods != null && !methods.isEmpty()) {
-                                        // email exists
-                                        Toast.makeText(this, "Email found. Methods: " + methods.toString(), Toast.LENGTH_SHORT).show();
-                                        resetBtn.setVisibility(View.VISIBLE);
-                                    } else {
-                                        Toast.makeText(this, "Email not found. Try again.", Toast.LENGTH_SHORT).show();
-                                        resetBtn.setVisibility(View.GONE);
-                                    }
-                                } else {
-                                    Toast.makeText(this, "No result from fetchSignInMethods", Toast.LENGTH_SHORT).show();
-                                }
+                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                // Email exists in Firestore
+                                auth.sendPasswordResetEmail(email)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(this, "Reset email sent!", Toast.LENGTH_SHORT).show();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, "Failed to send reset email: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        });
                             } else {
-                                Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Email not found in Firestore, try again", Toast.LENGTH_SHORT).show();
                             }
                         });
+
 
 
                 return true;

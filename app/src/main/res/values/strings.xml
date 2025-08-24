@@ -86,6 +86,7 @@
     <string name="appear_here">Your prediction will appear here...</string>
     <string name="my_predictions">My Predictions</string>
     <string name="predictions">Predictions</string>
+    <string name="saved_locations">My locations</string>
 
 
 </resources>

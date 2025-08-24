@@ -133,9 +133,9 @@ public class ViewStepsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //navigate to Profile page
+        //navigate to home page
         home.setOnClickListener(v -> {
-            Intent intent = new Intent(ViewStepsActivity.this, ProfileActivity.class);
+            Intent intent = new Intent(ViewStepsActivity.this, DashboardActivity.class);
             startActivity(intent);
         });
     }
@@ -162,7 +162,7 @@ public class ViewStepsActivity extends AppCompatActivity {
                     .update("completed", step.isCompleted());
         }
 
-        // update goal's overall percent
+        // update goal overall percent
         db.collection("users")
                 .document(uid)
                 .collection("goals")
