@@ -27,6 +27,7 @@ package com.s23010675.achievo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -47,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setTheme(R.style.Theme_Achievo);
-
         setContentView(R.layout.activity_main);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -73,12 +72,25 @@ public class MainActivity extends AppCompatActivity {
             public void onAccuracyChanged(Sensor sensor, int accuracy) {}
         };
 
-        //for splash page auto navigate to Get Started page
+        // Check if app is opened for the first time
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean("isFirstTime", true);
+
+        if (isFirstTime) {
+            prefs.edit().putBoolean("isFirstTime", false).apply();
+            navigateWithDelay(GetStartedActivity.class);
+        } else {
+            navigateWithDelay(LoginActivity.class);
+        }
+    }
+
+
+    // Reusable method for navigation
+    private void navigateWithDelay(Class<?> cls) {
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, GetStartedActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(MainActivity.this, cls));
             finish();
-        }, 3000);
+        }, 3000); // splash delay
     }
 
     @Override
