@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg">
+    >
 
 
     <LinearLayout
@@ -113,7 +113,6 @@
             android:backgroundTint="@null"
             android:elevation="6dp"
             android:onClick="navitoDash"
-            android:padding="16dp"
             android:shadowColor="@color/white"
             android:shadowDx="1"
             android:shadowDy="1"

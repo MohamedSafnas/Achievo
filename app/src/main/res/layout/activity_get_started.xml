@@ -2,8 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg">
+    android:layout_height="match_parent">
 
 
     <TextView
@@ -27,7 +26,6 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/bold"
         android:layout_width="202dp"
         android:layout_height="74dp"
         android:gravity="center"
@@ -72,7 +70,6 @@
         app:layout_constraintVertical_bias="0.93" />
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="245dp"
         android:layout_height="333dp"
         app:layout_constraintBottom_toBottomOf="parent"

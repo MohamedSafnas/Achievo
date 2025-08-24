@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         editIcon.setOnClickListener(pickImage);
 
         // Bottom navigation
-        TextView logout = findViewById(R.id.logout);
+        LinearLayout logout = findViewById(R.id.logout);
         ImageView home = findViewById(R.id.homeI);
 
         logout.setOnClickListener(v -> {
@@ -85,6 +86,8 @@ public class ProfileActivity extends AppCompatActivity {
         home.setOnClickListener(v -> {
             startActivity(new Intent(ProfileActivity.this, DashboardActivity.class));
         });
+
+
     }
 
     private void loadUserProfile() {

@@ -87,6 +87,7 @@
     <string name="my_predictions">My Predictions</string>
     <string name="predictions">Predictions</string>
     <string name="saved_locations">My locations</string>
+    <string name="goals">Goals</string>
 
 
 </resources>

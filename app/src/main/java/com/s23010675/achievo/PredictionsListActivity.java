@@ -64,7 +64,9 @@ public class PredictionsListActivity extends AppCompatActivity {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("users").document(userId).collection("predictions")
+        db.collection("users")
+                .document(userId)
+                .collection("predictions")
                 .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {

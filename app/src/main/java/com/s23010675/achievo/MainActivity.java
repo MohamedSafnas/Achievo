@@ -25,16 +25,53 @@ public class MainActivity extends AppCompatActivity {
 
 package com.s23010675.achievo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    private SensorEventListener lightListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setTheme(R.style.Theme_Achievo);
+
         setContentView(R.layout.activity_main);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        }
+
+        // Create sensor listener
+        lightListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float lux = event.values[0];
+
+                Log.d("LightSensorTest", "Current lux: " + lux);
+
+                //dark if bright, light if low light
+                AppCompatDelegate.setDefaultNightMode(lux < 50 ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+        };
 
         //for splash page auto navigate to Get Started page
         new Handler().postDelayed(() -> {
@@ -43,6 +80,20 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }, 3000);
     }
-}
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (lightSensor != null) {
+            sensorManager.registerListener(lightListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(lightListener);
+    }
+
+}
 

@@ -44,19 +44,25 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.Pr
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            db.collection("users").document(userId).collection("predictions")
-                    .document(prediction.id)
+            db.collection("users")
+                    .document(userId)
+                    .collection("predictions")
+                    .document(prediction.getId())
                     .delete()
                     .addOnSuccessListener(aVoid -> {
                         predictionList.remove(position);
                         notifyItemRemoved(position);
                         Toast.makeText(holder.itemView.getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                         Toast.makeText(holder.itemView.getContext(), "Delete failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         });
         holder.itemView.setOnClickListener(c -> {
             Intent intent = new Intent(holder.itemView.getContext(), PredictOutcomeActivity.class);
             //intent.putExtra("predictionType", prediction.getType()); // "goal" or "custom"
-            intent.putExtra("goalName", prediction.getGoalName());   // for custom, this is title
+            intent.putExtra("goalName", prediction.getGoalName());
+            intent.putExtra("title", prediction.getGoalName());// for custom, this is title
             intent.putExtra("predictionOutcome", prediction.getPredictionText());
             intent.putExtra("date", prediction.getCreatedAt()); // optional
             holder.itemView.getContext().startActivity(intent);

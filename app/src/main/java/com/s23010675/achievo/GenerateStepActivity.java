@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +29,10 @@ import java.util.Map;
 
 public class GenerateStepActivity extends AppCompatActivity {
 
-    TextView goalName, statusText1, statusText2, statusText3, goalDone, goalViewSteps;
+    TextView goalName, statusText1, statusText2, statusText3, goalDone;
     ImageView doneIcon, viewIcon;
     ProgressBar loadingBar;
+    LinearLayout goalViewSteps, back;
 
     boolean analizeSuccess = true;
     boolean undSuccess = true;
@@ -49,7 +51,8 @@ public class GenerateStepActivity extends AppCompatActivity {
         statusText1 = findViewById(R.id.statusText);
         statusText2 = findViewById(R.id.statusText2);
         statusText3 = findViewById(R.id.statusText3);
-        goalDone = findViewById(R.id.des_back);
+        back = findViewById(R.id.des_back);
+        goalDone = findViewById(R.id.goalDone);
         goalViewSteps = findViewById(R.id.viewSteps);
         doneIcon = findViewById(R.id.done_undone);
         viewIcon = findViewById(R.id.view);
@@ -176,17 +179,17 @@ public class GenerateStepActivity extends AppCompatActivity {
 
         }, 5500);
 
-        TextView des_back = findViewById(R.id.des_back);
+        //TextView des_back = findViewById(R.id.des_back);
         ImageView home = findViewById(R.id.homeI);
         ImageView profile = findViewById(R.id.profileI);
-        TextView view_goal = findViewById(R.id.viewSteps);
+        //TextView view_goal = findViewById(R.id.viewSteps);
 
 
-        des_back.setOnClickListener(v -> finish());
+        back.setOnClickListener(v -> finish());
         profile.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
         home.setOnClickListener(v -> startActivity(new Intent(this, DashboardActivity.class)));
 
-        view_goal.setOnClickListener(v -> {
+        goalViewSteps.setOnClickListener(v -> {
             String stepsToView = generatedStepsJson;
 
             // fallback to saved steps if current session variable is null
@@ -198,7 +201,7 @@ public class GenerateStepActivity extends AppCompatActivity {
                 Intent intent = new Intent(GenerateStepActivity.this, ViewStepsActivity.class);
                 intent.putExtra("goal_steps", stepsToView);
                 intent.putExtra("user_goal", goal);
-                intent.putExtra("goalId", goalId); // <<< add this line
+                intent.putExtra("goal_id", goalId);
                 startActivity(intent);
 
             } else {

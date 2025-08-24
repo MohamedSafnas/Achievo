@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -134,7 +133,6 @@
             android:background="@drawable/rounded_button"
             android:backgroundTint="@null"
             android:elevation="6dp"
-            android:padding="16dp"
             android:shadowColor="@color/white"
             android:shadowDx="1"
             android:shadowDy="1"

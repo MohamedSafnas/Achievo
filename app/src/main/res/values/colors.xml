@@ -9,4 +9,6 @@
     <color name="custom">#FFDE71</color>
     <color name="lightBlue">#C3D7EA</color>
     <color name="lightGreen">#57FF00</color>
+    <color name="lightBlue2">#00FFDE</color>
+    <color name="light_primary">#76BABA</color>
 </resources>

@@ -47,7 +47,13 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
 
         holder.checkBox.setOnCheckedChangeListener(null);
 
-        holder.checkBox.setText(step.getStepText());
+        // Remove both single * and double ** markers
+        String cleanText = step.getStepText().replace("**", "").replace("*", "");
+        holder.checkBox.setText(cleanText);
+
+        holder.checkBox.setTextColor(holder.itemView.getResources().getColor(android.R.color.white));
+
+        //holder.checkBox.setText(step.getStepText());
         holder.checkBox.setChecked(step.isCompleted());
 
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {

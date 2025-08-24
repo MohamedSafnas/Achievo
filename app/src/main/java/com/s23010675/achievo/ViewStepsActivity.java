@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewStepsActivity extends AppCompatActivity {
-
     RecyclerView stepsRecycler;
     ProgressBar progressBar;
     TextView progressText;
